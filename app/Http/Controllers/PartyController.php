@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Party;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Input;
+use Validator;
+use Response;
 class PartyController extends Controller
 {
     /**
@@ -24,7 +26,7 @@ class PartyController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -35,7 +37,42 @@ class PartyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->ajax())
+        {
+            $rules = array(
+                'partyname' => "required|string|unique:parties|max:250",
+                'partycontact' => "required|numeric",
+                'partygst' => "required",
+                'partypercent' => "required"
+            );
+
+            $validator = Validator::make(Input::all(), $rules);
+
+            if ($validator->fails())
+            {
+                return Response::json(array(
+                    "errors" => $validator->getMessageBag()->toArray()
+                ));
+            }
+            else
+            {
+                $party = new Party;
+                $party->partyName = $request->partyname;
+                $party->partyContact = $request->partycontact;  
+                $party->partyGstin = $request->partygst;  
+                $party->partyPercentage = $request->partypercent;
+                $store = rand(10,100);  
+                $party->partyId = md5($request->partypercent.$store); 
+                $party->save();
+
+                return Response::json($party);
+            }
+        }
+        else
+        {
+            return Response::json(array('error' => "response was not JSON" ));
+        }
+
     }
 
     /**

@@ -34,7 +34,7 @@
             </div> 
             <div class="form-group" style="align:center;">
             <div class="col-sm-12">
-              <button class="btn btn-primary" id = "addpartybtn" name="addpartybtn" type="button" value="addpartybtn">Submit details</button>
+              <button class="btn btn-primary" id="addpartybtn" name="addpartybtn" type="button" value="addpartybtn">Submit details</button>
             </div>
             </div>
           </form>
@@ -74,33 +74,48 @@
                 </div>
               </div>
             </form>
-                                    
-
 @endsection
-
-@push('script')
-
+@push('scripts')
   <script>
     $(document).ready(function() {
       $('#addpartybtn').click(function(){
-        if(!$('#partypercent').val() || !$('#partycontact').val() || !$('#partyname').val()) {
-          alert("Party details can not be empty !");
-        }else{
-        //alert("addpartybtn");
-          $.ajax({  
-            type: 'POST',
-            url: 'ajax.php',
-            data: { addpartybtn: $('#addpartybtn').val(), partypercent: $('#partypercent').val(), partygst: $('#partygst').val(), 
-            partycontact: $('#partycontact').val(), partyname: $('#partyname').val()},
-            success: function(html)
-            { //alert(html);
-              $('#result_here').html(html);
-              $('#result_here').show();
-              $('#result_here').fadeOut(3000);
-            }
-          });
+        alert('hello world');
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+
+        // event.preventDefault();
+
+        var formData = {
+            partyname:    $('#partyname').val(),
+            partycontact: $('#partycontact').val(),
+            partygst:     $('#partygst').val(),
+            partypercent: $('#partypercent').val(),
         }
+        console.log(formData);
+        $.ajax({  
+          type: 'POST',
+          url: '{{ route('store.party') }}',
+          data: formData,
+          dataType: 'json',
+          success: function(html)
+          { 
+            $('#result_here').html(html);
+            $('#result_here').show();
+            $('#result_here').fadeOut(3000);
+          },
+          error: function(data) {
+            $('#result_here').html(data);
+            $('#result_here').show();
+            $('#result_here').fadeOut(3000);
+          }
+        });
     });
+
+
+
 
 
     $('#editparty_btn').click(function(){

@@ -1,33 +1,22 @@
-
-
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
-    <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../chc.jpg">
-    <title>Chhattisgarh Hallmarking Center</title>
-			
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('public/assets/chc.jpg') }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>Chhattisgarh Hallmarking Center</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- 
-    <link href="{{ asset('public/assets/admin/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/assets/admin/dist/css/style.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/assets/admin/datepiker/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
-    <link href="{{ asset('public/assets/admin/datepiker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" media="screen">
+  <link href="{{ asset('public/assets/admin/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('public/assets/admin/dist/css/style.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('public/assets/admin/datepiker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" media="screen">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-		
-		<style>
+	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>		
+	<style>
 body {margin:0;font-family:Arial}
 
 .topnav {
@@ -132,19 +121,14 @@ body {margin:0;font-family:Arial}
     text-align: left;
   }
 }
-			
-			
-			label{
-			color:black;
-			}
+	label{
+		color:black;
+	}
 </style>	
 		
 </head>
 <body>
-
-   	
 <div class="topnav navbar" id="myTopnav">
-	
 	<div class="navbar-header">
 		<a class="navbar-brand" href="index.php"><img src="{{ asset('public/assets/chc.jpg') }}" width="150px"/></a>
   </div>
@@ -158,9 +142,6 @@ body {margin:0;font-family:Arial}
       <a href="logout.php"  class="btn btn-danger">Logout</a>
       <a href="javascript:void(0);" style="font-size:18px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
-	
-	
-	
 <script>
 function myFunction() {
   var x = document.getElementById("myTopnav");
@@ -209,7 +190,7 @@ function myFunction() {
     {{-- <script src="ass assets/libs/jquery/dist/jquery.min.js"></script> --}}
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{ asset('public/assets/admin/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
-    <script src="{{ asset('pubcli/assets/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('public/assets/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/assets/admin/dist/js/app-style-switcher.js') }}"></script>
     <!--Wave Effects -->
     <script src="{{ asset('public/assets/admin/dist/js/waves.js') }}"></script>
@@ -219,14 +200,14 @@ function myFunction() {
     <script src="{{ asset('public/assets/admin/dist/js/custom.js') }}"></script>
     <!--This page JavaScript -->
     <!--chartis chart-->
-    <script src="assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="dist/js/pages/dashboards/dashboard1.js"></script>
+    <script src="{{ asset('public/assets/admin/assets/libs/chartist/dist/chartist.min.js') }}"></script>
+    <script src="{{ asset('public/assets/admin/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
+    <script src="{{ asset('public/assets/admin/dist/js/pages/dashboards/dashboard1.js') }}"></script>
     
-<script type="text/javascript" src="./datepiker/jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
-<script type="text/javascript" src="./datepiker/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./datepiker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="./datepiker/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/jquery/jquery-1.8.3.min.js') }}" charset="UTF-8"></script>
+{{-- <script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/bootstrap/js/bootstrap.min.js') }}"></script> --}}
+<script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/js/bootstrap-datetimepicker.js') }}" charset="UTF-8"></script>
+<script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/js/locales/bootstrap-datetimepicker.fr.js') }}" charset="UTF-8"></script>
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({
         //language:  "fr",
@@ -260,6 +241,7 @@ function myFunction() {
         forceParse: 0
     });
 </script>
+@stack('scripts')
 </body>
 
 </html>
