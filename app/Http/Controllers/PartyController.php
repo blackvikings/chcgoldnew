@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Validator;
 use Response;
+use Redirect;
+use Auth;
 class PartyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,8 @@ class PartyController extends Controller
      */
     public function index()
     {
-        return view('admin.manage-party.index');
+        $parties = Party::all();
+        return view('admin.manage-party.index', compact('parties'));
     }
 
     /**
@@ -92,9 +99,13 @@ class PartyController extends Controller
      * @param  \App\Party  $party
      * @return \Illuminate\Http\Response
      */
-    public function edit(Party $party)
+    public function edit(Request $request)
     {
-        //
+        if($request->ajax())
+        {
+            $partyedit = Party::find($request->partyName);
+            return $partyedit;
+        }
     }
 
     /**
@@ -104,9 +115,41 @@ class PartyController extends Controller
      * @param  \App\Party  $party
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Party $party)
+    public function update(Request $request)
     {
-        //
+        if($request->ajax())
+        {
+            $rules = array(
+                'partyname' => "required|string|unique:parties|max:250",
+                'partycontact' => "required|numeric",
+                'partygst' => "required",
+                'partypercent' => "required"
+            );
+
+            $validator = Validator::make(Input::all(), $rules);
+
+            if ($validator->fails())
+            {
+                return Response::json(array(
+                    "errors" => $validator->getMessageBag()->toArray()
+                ));
+            }
+            else
+            {
+                $party = Party::find($request->partyid);
+                $party->partyName = $request->partyname;
+                $party->partyContact = $request->partycontact;  
+                $party->partyGstin = $request->partygst;  
+                $party->partyPercentage = $request->partypercent; 
+                $party->save();
+
+                return Response::json($party);
+            }
+        }
+        else
+        {
+            return Response::json(array('error' => "response was not JSON" ));
+        }
     }
 
     /**

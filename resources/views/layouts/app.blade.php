@@ -132,15 +132,21 @@ body {margin:0;font-family:Arial}
 	<div class="navbar-header">
 		<a class="navbar-brand" href="index.php"><img src="{{ asset('public/assets/chc.jpg') }}" width="150px"/></a>
   </div>
-      <a href="{{ url('/') }}">Manage Party</a>
-      <a href="receiving.php">Receiving</a>
+  @if(Auth::check())
+      <a href="{{ route('manage.party') }}">Manage Party</a>
+      <a href="{{ route('receiving') }}">Receiving</a>
       <a href="editrecieve.php">Edit Receiving</a>
       <a href="fireassay.php">Fireassay</a>
       <a href="refine.php">Refine</a>
       <a href="stock.php">Stock</a>
       <a href="ledger.php">Ledger</a>
-      <a href="logout.php"  class="btn btn-danger">Logout</a>
+      <a href="{{ route('logout') }}"  class="btn btn-danger" onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">Logout</a>
+                                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                                @csrf
+                                                              </form>
       <a href="javascript:void(0);" style="font-size:18px;" class="icon" onclick="myFunction()">&#9776;</a>
+  @endif
 </div>
 <script>
 function myFunction() {

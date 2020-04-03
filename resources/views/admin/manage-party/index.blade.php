@@ -47,46 +47,76 @@
         <div class="card-body">
           <h4 class="card-title" style="color:white; background:black; padding:10px;">Edit party</h4>
           <div class="feed-widget">
-            <form class="form-horizontal form-inline" action="" method="POST" enctype='multipart/form-data'>
+            <form class="form-horizontal form-inline" id="partyNameform" action="javascript:void(0);">
               <div class="form-group">
                 <div class="col-md-8">
-                  <select class="form-control form-control-line" name="editparty_selector">
-                    <?php
-                        //$conn = new mysqli($servername, $username, $password, $dbname);
-                        //if ($conn->connect_error) {die("Connection failed: " . $conn->connect_error);}
-                          //  $sql = "SELECT * FROM partytable";
-                            //$result = $conn->query($sql);
-                            //if ($result->num_rows > 0) {
-                            //while($row = $result->fetch_assoc()) {
-                              //echo'<option value="'.$row["id"].'">'.$row["partyname"].'</option>'; 
-                            //}
-                              //} else {
-                                //echo'<option>No Data Available !!</option>';
-                              //}
-                            //$conn->close();
-                    ?>
+                  <select class="form-control form-control-line" name="partyName">
+                    @forelse($parties as $party)
+                      <option value="{{ $party->id }}">{{ $party->partyName }}</option>
+                    @empty
+                      <option>Party not found</option>
+                    @endforelse
                   </select>
                 </div>
               </div>
               <div class="form-group" style="align:center;">
                 <div class="col-sm-12">
-                  <button class="btn btn-primary" name="showParty_details" type="submit">Get details</button>
+                  <button class="btn btn-primary" name="showParty_details" id="getPartydetails" type="submit">Get details</button>
                 </div>
               </div>
             </form>
+            
+            <form class="form-horizontal form-material" id="editForm" style="display: none;">
+              <div class="form-group">
+                <label class="col-md-12">Party Name</label>
+                <div class="col-md-12">
+                  <input type="text" name="editparty_name" id="xname"  placeholder="Enter Full Name." class="form-control form-control-line" value="" required>
+                </div>
+              </div> 
+              <div class="form-group">
+                <label class="col-md-12">Party Contact</label>
+                <div class="col-md-12">
+                  <input type="text" name="editparty_contact" id="xcontact" placeholder="Enter Mobile Number." minlength="10" maxlength="10" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="form-control form-control-line" value="" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-12">Party GSTIN</label>
+                <div class="col-md-12">
+                  <input type="text" name="editparty_gst" id="xgst" placeholder="Enter GST Number."  minlength="15" maxlength="15" class="form-control form-control-line" value="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-12">Party % Parameter</label>
+                <div class="col-md-12">
+                  <input type="number" name="editparty_percent" id="xpercent" step="0.01" class="form-control form-control-line" value="" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="hidden" name="xid" id="xid" class="form-control" value="">
+              </div>
+              <div class="form-group" style="align:center;">
+                <div class="col-sm-12">
+                  <button class="btn btn-primary" type="button" id="editparty_btn" name="editparty_btn" id="xbtn">Submit details</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>        
+  </div>
 @endsection
 @push('scripts')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
     $(document).ready(function() {
       $('#addpartybtn').click(function(){
-        alert('hello world');
+        // alert('hello world');
         $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
         });
-
-        // event.preventDefault();
 
         var formData = {
             partyname:    $('#partyname').val(),
@@ -114,27 +144,68 @@
         });
     });
 
+    $('#getPartydetails').click(function(){
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({  
+          type: 'POST',
+          url: '{{ route('edit.party') }}',
+          data: $('#partyNameform').serialize(),
+          dataType: 'json',
+          success: function(data)
+          { 
+            $("#xname").val(data.partyName);
+            $("#xcontact").val(data.partyContact);
+            $("#xgst").val(data.partyGstin);
+            $("#xpercent").val(data.partyPercentage);
+            $("#xid").val(data.id);
+            $("#editForm").show();
+          },
+          error: function(data) {
+            
+          }
+        });
+    });
 
 
 
 
     $('#editparty_btn').click(function(){
-      if(!$('#xid').val() || !$('#xpercent').val() || !$('#xcontact').val() || !$('#xname').val()) {
-        alert("Party details can not be empty !");
-      }else{
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+
+        var formData = {
+            partyname:    $('#xname').val(),
+            partycontact: $('#xcontact').val(),
+            partygst:     $('#xgst').val(),
+            partypercent: $('#xpercent').val(),
+            partyid: $("#xid").val(),
+        };
+        console.log(formData);
         $.ajax({  
           type: 'POST',
-          url: 'ajax.php',
-          data: { editparty_btn: $('#editparty_btn').val(), xid: $('#xid').val(), xpercent: $('#xpercent').val(), 
-          xgst: $('#xgst').val(), xcontact: $('#xcontact').val(), xname: $('#xname').val()},
+          url: '{{ route('update.party') }}',
+          data: formData,
+          dataType: 'json',
           success: function(html)
-          { 
-            $('#result_here').html(html);
+          {           
+            swal("Party data update successfully!.")
+            .then((value) => {
+              window.location.reload();
+            });  
+          },
+          error: function(data) {
+            $('#result_here').html(data);
             $('#result_here').show();
             $('#result_here').fadeOut(3000);
           }
         });
-      }
     });
   });
 </script>

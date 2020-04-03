@@ -56,6 +56,10 @@ Route::delete('/permission-delete/{permission}', 'PermissionController@destroy')
 
 Route::get('/manage-party', 'PartyController@index')->name('manage.party');
 Route::post('/manage-party', 'PartyController@store')->name('store.party');
+Route::post('/edit-party', 'PartyController@edit')->name('edit.party');
+Route::post('/update-party', 'PartyController@update')->name('update.party');
+
+Route::get('/receiving', 'BillController@index')->name('receiving');
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
