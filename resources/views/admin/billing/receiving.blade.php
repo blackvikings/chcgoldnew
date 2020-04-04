@@ -14,24 +14,15 @@
 										<div class="form-group">
 											<label>Serial Number</label>
 											<div class="col-md-8">
-												<?php
-													$sql = "SELECT billserial FROM billtable";
-													$result = $conn->query($sql);
-													if ($result->num_rows > 0) {
-														while($row = $result->fetch_assoc()) {
-															$ser = $row["billserial"];
-														}
-														echo'<input type="text" name="serial_inc" class="form-control " value='.$ser.' required readonly >';
-													} else {echo'<input type="text" name="serial_inc" class="form-control " value="1" required readonly >';}
-													$conn->close();
-												?>
+												{{-- <input type="text" name="serial_inc" class="form-control " value='' required readonly > --}}
+												<input type="text" name="serial_inc" class="form-control " value="1" required readonly >
 											</div>
 										</div>
 									</td>
 									<td>
 										<div class="form-group"><label>Date</label>
 											<div class="col-md-8">
-												<input type="text" name="bill_date" value="<?php echo $currentdate;?>" class="form-control " readonly  required>
+												<input type="text" name="bill_date" value="@php echo date('Y-m-d'); @endphp" class="form-control " readonly  required>
 											</div>
 										</div>
 									</td>
@@ -40,18 +31,6 @@
 											<div class="col-md-8">
 												<select class="form-control" name="party_selector" id="pcs" required>
 													<option value="" selected disabled hidden> Select Party </option> 
-													<?php
-														$conn = new mysqli($servername, $username, $password, $dbname);
-														if($conn->connect_error) {die("Connection failed: " . $conn->connect_error);}
-														$sql = "SELECT * FROM partytable";
-														$result = $conn->query($sql);
-														if ($result->num_rows > 0) {
-															while($row = $result->fetch_assoc()) {
-																echo'<option value="'.$row["partyname"].'|'.$row["partypercent"].'|'.$row["partyid"].'">'.$row["partyname"].'</option>';
-															}
-														} else {echo'<option>No Data Available !!</option>';}
-														$conn->close();
-													?>
 												</select>
 											</div>
 										</div>
