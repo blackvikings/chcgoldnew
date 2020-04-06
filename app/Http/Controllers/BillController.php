@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bill;
+use App\Party;
 use Illuminate\Http\Request;
 
 class BillController extends Controller
@@ -14,7 +15,8 @@ class BillController extends Controller
      */
     public function index()
     {
-        return view('admin.billing.receiving');
+        $parties = Party::all();
+        return view('admin.billing.receiving', compact('parties'));
     }
 
     /**

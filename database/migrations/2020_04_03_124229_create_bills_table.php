@@ -18,8 +18,7 @@ class CreateBillsTable extends Migration
             $table->date('billdate');
             $table->integer('billserial');
             $table->string('billid', 250);
-            $table->unsignedInteger('party_id')->unsigned(); 
-            $table->foreign('party_id')->refernces('id')->on('parties');
+            $table->bigIncrements('party_id'); 
             $table->float('partypercentnew', '5', '2');
             $table->string('itemname');
             $table->float('beforemeltingweight', '5', '3');

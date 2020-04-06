@@ -31,6 +31,9 @@
 											<div class="col-md-8">
 												<select class="form-control" name="party_selector" id="pcs" required>
 													<option value="" selected disabled hidden> Select Party </option> 
+													@foreach($parties as $party)
+														<option value="{{ $party->id }}">{{ $party->partyName }}</option>
+													@endforeach
 												</select>
 											</div>
 										</div>
