@@ -135,7 +135,7 @@ body {margin:0;font-family:Arial}
   @if(Auth::check())
       <a href="{{ route('manage.party') }}">Manage Party</a>
       <a href="{{ route('receiving') }}">Receiving</a>
-      <a href="editrecieve.php">Edit Receiving</a>
+      <a href="{{ route('edit.receiving') }}">Edit Receiving</a>
       <a href="fireassay.php">Fireassay</a>
       <a href="refine.php">Refine</a>
       <a href="stock.php">Stock</a>

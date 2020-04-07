@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class BillController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +63,7 @@ class BillController extends Controller
      */
     public function edit(Bill $bill)
     {
-        //
+        return view('admin.billing.editrecieve');
     }
 
     /**

@@ -60,6 +60,7 @@ Route::post('/edit-party', 'PartyController@edit')->name('edit.party');
 Route::post('/update-party', 'PartyController@update')->name('update.party');
 
 Route::get('/receiving', 'BillController@index')->name('receiving');
+Route::get('/edit-receiving', 'BillController@edit')->name('edit.receiving');
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
