@@ -20,7 +20,8 @@ class BillController extends Controller
     public function index()
     {
         $parties = Party::all();
-        return view('admin.billing.receiving', compact('parties'));
+        $bill = Bill::orderBy('id', 'DESC')->first();
+        return view('admin.billing.receiving', compact('parties', 'bill'));
     }
 
     /**
@@ -28,9 +29,9 @@ class BillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function partyParameter(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**

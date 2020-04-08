@@ -14,8 +14,11 @@
 										<div class="form-group">
 											<label>Serial Number</label>
 											<div class="col-md-8">
-												{{-- <input type="text" name="serial_inc" class="form-control " value='' required readonly > --}}
-												<input type="text" name="serial_inc" class="form-control " value="1" required readonly >
+												@if($bill)
+													<input type="text" name="serial_inc" class="form-control " value='{{ $bill->billserial }}' required readonly >
+												@else
+													<input type="text" name="serial_inc" class="form-control " value="1" required readonly >
+												@endif
 											</div>
 										</div>
 									</td>
@@ -160,15 +163,40 @@
 @push('scripts')
 <script>
 $(document).ready(function(){
-    $("#pcs").on('change', function(){
-        var pcs_val  = $(this).val();
-        $.ajax({
-            type: "POST",
-            url: "ajax.php",
-            data: { pcs: pcs_val},
-            success: function(theResponse) {$('#outputDiv').html(theResponse);}                   
+      $("#pcs").on('change', function(){
+        // alert('hello world');
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
         });
-    });	 
+        var pcs_val  = $(this).val();
+        // console.log(pcs_val);
+        $.ajax({  
+          type: 'POST',
+          url: '{{ route('party.parameter') }}',
+          data: {pcs: pcs_val},
+          dataType: 'json',
+          success: function(html)
+          { 
+          	console.log(html);
+            // $('#outputDiv').html(theResponse);
+          },
+          error: function(data) {
+            
+          }
+        });
+    });
+
+    // $("#pcs").on('change', function(){
+    //     var pcs_val  = $(this).val();
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "",
+    //         data: { pcs: pcs_val},
+    //         success: function(theResponse) {}                   
+    //     });
+    // });	 
 });
 </script>
  

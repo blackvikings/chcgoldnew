@@ -60,7 +60,17 @@ Route::post('/edit-party', 'PartyController@edit')->name('edit.party');
 Route::post('/update-party', 'PartyController@update')->name('update.party');
 
 Route::get('/receiving', 'BillController@index')->name('receiving');
+Route::post('/party-parameter', 'BillController@partyParameter')->name('party.parameter');
+
 Route::get('/edit-receiving', 'BillController@edit')->name('edit.receiving');
+
+Route::get('/fireassay', 'FireassayController@index')->name('fireassay');
+
+Route::get('/refine', 'RefineController@index')->name('refine');
+
+Route::get('/stock', 'StockController@index')->name('stock');
+
+Route::get('/ledger', 'LedgerController@index')->name('ledger');
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');

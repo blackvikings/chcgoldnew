@@ -13,9 +13,6 @@
   <link href="{{ asset('public/assets/admin/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/assets/admin/dist/css/style.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/assets/admin/datepiker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" media="screen">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>		
 	<style>
 body {margin:0;font-family:Arial}
 
@@ -136,10 +133,10 @@ body {margin:0;font-family:Arial}
       <a href="{{ route('manage.party') }}">Manage Party</a>
       <a href="{{ route('receiving') }}">Receiving</a>
       <a href="{{ route('edit.receiving') }}">Edit Receiving</a>
-      <a href="fireassay.php">Fireassay</a>
-      <a href="refine.php">Refine</a>
-      <a href="stock.php">Stock</a>
-      <a href="ledger.php">Ledger</a>
+      <a href="{{ route('fireassay') }}">Fireassay</a>
+      <a href="{{ route('refine') }}">Refine</a>
+      <a href="{{ route('stock') }}">Stock</a>
+      <a href="{{ route('ledger') }}">Ledger</a>
       <a href="{{ route('logout') }}"  class="btn btn-danger" onclick="event.preventDefault();
                                                              document.getElementById('logout-form').submit();">Logout</a>
                                                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -195,6 +192,9 @@ function myFunction() {
     <!-- ============================================================== -->
     {{-- <script src="ass assets/libs/jquery/dist/jquery.min.js"></script> --}}
     <!-- Bootstrap tether Core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>  
     <script src="{{ asset('public/assets/admin/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
     <script src="{{ asset('public/assets/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/assets/admin/dist/js/app-style-switcher.js') }}"></script>
