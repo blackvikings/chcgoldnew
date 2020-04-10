@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('title', 'Chhattisgarh Hallmarking Center')
+@push('css')
+<style type="text/css">
+  .error {
+    color: red;
+  }
+</style>
+@endpush
 @section('content')
   <div class="row"> 
     <div class="col-md-6">
@@ -7,7 +14,7 @@
         <div class="card-body">
           <h4 class="card-title" style="color:white; background:black; padding:10px;">Add party</h4>
           <div class="feed-widget">
-          <form class="form-horizontal form-material" id="addParty">
+          <form class="form-horizontal form-material" id="addParty" action="javascript::void(0)">
             <div class="form-group">
             <label class="col-md-12">Party Name</label>
             <div class="col-md-12">
@@ -34,7 +41,7 @@
             </div> 
             <div class="form-group" style="align:center;">
             <div class="col-sm-12">
-              <button class="btn btn-primary" id="addpartybtn" name="addpartybtn" type="button" value="addpartybtn">Submit details</button>
+              <button class="btn btn-primary" id="addpartybtn" name="addpartybtn" type="submit" value="addpartybtn">Submit details</button>
             </div>
             </div>
           </form>
@@ -66,7 +73,7 @@
               </div>
             </form>
             
-            <form class="form-horizontal form-material" id="editForm" style="display: none;">
+            <form class="form-horizontal form-material" id="editForm" action="javascript::void(0)" style="display: none;">
               <div class="form-group">
                 <label class="col-md-12">Party Name</label>
                 <div class="col-md-12">
@@ -96,7 +103,7 @@
               </div>
               <div class="form-group" style="align:center;">
                 <div class="col-sm-12">
-                  <button class="btn btn-primary" type="button" id="editparty_btn" name="editparty_btn" id="xbtn">Submit details</button>
+                  <button class="btn btn-primary" type="submit" id="editparty_btn" name="editparty_btn" id="xbtn">Submit details</button>
                 </div>
               </div>
             </form>
@@ -113,9 +120,9 @@
   <script>
     $(document).ready(function() {
       $('#addpartybtn').click(function(){
-        // alert('hello world');
+      //   alert('hello world');
 
-        $("#addParty").validate({
+        $("form#addParty").validate({
           rules: {
               partyname: {
                       required: true,
@@ -199,38 +206,76 @@
 
 
     $('#editparty_btn').click(function(){
-      $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
 
-        var formData = {
-            partyname:    $('#xname').val(),
-            partycontact: $('#xcontact').val(),
-            partygst:     $('#xgst').val(),
-            partypercent: $('#xpercent').val(),
-            partyid: $("#xid").val(),
-        };
-        console.log(formData);
-        $.ajax({  
-          type: 'POST',
-          url: '{{ route('update.party') }}',
-          data: formData,
-          dataType: 'json',
-          success: function(html)
-          {           
-            swal("Party data update successfully!.")
-            .then((value) => {
-              window.location.reload();
-            });  
+      $("form#editForm").validate({
+          rules: {
+              xname: {
+                      required: true,
+                  },
+              xcontact: {
+                  required: true,
+              },          
+              xgst: {
+                  required: true,
+              },
+              xpercent: {
+                required:true,
+              },
+
           },
-          error: function(data) {
-            $('#result_here').html(data);
-            $('#result_here').show();
-            $('#result_here').fadeOut(3000);
-          }
-        });
+          messages: {
+              xname: {
+                      required: "Please enter pary name.",
+                  },
+              xcontact: {
+                  required: "Please enter pary's contact number.",
+              },          
+              xgst: {
+                  required: "Please enter GSTIN Number.",
+              },
+              xpercent:{
+                required:"Please party percentage parameter."
+              }
+          },
+          submitHandler: function(form) {
+
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+
+              var formData = {
+                  partyname:    $('#xname').val(),
+                  partycontact: $('#xcontact').val(),
+                  partygst:     $('#xgst').val(),
+                  partypercent: $('#xpercent').val(),
+                  partyid: $("#xid").val(),
+              };
+              console.log(formData);
+              $.ajax({  
+                type: 'POST',
+                url: '{{ route('update.party') }}',
+                data: formData,
+                dataType: 'json',
+                success: function(html)
+                {           
+                  swal("Party data update successfully!.")
+                  .then((value) => {
+                    window.location.reload();
+                  });  
+                },
+                error: function(data) {
+                  $('#result_here').html(data);
+                  $('#result_here').show();
+                  $('#result_here').fadeOut(3000);
+                }
+              });
+            }
+          });
+
+
+
     });
   });
 </script>

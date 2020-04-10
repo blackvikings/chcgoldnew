@@ -16,9 +16,19 @@
 											<label>Serial Number</label>
 											<div class="col-md-8">
 												@if($bill)
-													<input type="text" name="serial_inc" class="form-control " value='{{ $bill->billserial }}' required readonly >
+													<input type="text" name="serial_inc" class="form-control @error('serial_inc') is-invalid @enderror " value='{{ $bill->billserial }}' readonly >
+													@error('serial_inc')
+							                            <span class="invalid-feedback" role="alert">
+							                                <strong>{{ $message }}</strong>
+							                            </span>
+							                        @enderror
 												@else
-													<input type="text" name="serial_inc" class="form-control " value="1" required readonly >
+													<input type="text" name="serial_inc" class="form-control @error('serial_inc') is-invalid @enderror " value="1" readonly >
+													@error('serial_inc')
+							                            <span class="invalid-feedback" role="alert">
+							                                <strong>{{ $message }}</strong>
+							                            </span>
+							                        @enderror
 												@endif
 											</div>
 										</div>
@@ -26,24 +36,39 @@
 									<td>
 										<div class="form-group"><label>Date</label>
 											<div class="col-md-8">
-												<input type="text" name="bill_date" value="@php echo date('Y-m-d'); @endphp" class="form-control " readonly  required>
+												<input type="text" name="bill_date" value="@php echo date('Y-m-d'); @endphp" class="form-control @error('bill_date') is-invalid @enderror" readonly >
+												@error('bill_date')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+						                        @enderror
 											</div>
 										</div>
 									</td>
                                     <td>
 										<div class="form-group"><label>Select Party</label>
 											<div class="col-md-8">
-												<select class="form-control" name="party_selector" id="pcs" required>
+												<select class="form-control @error('party_selector') is-invalid @enderror" name="party_selector" id="pcs">
 													<option value="" selected disabled hidden> Select Party </option> 
 													@foreach($parties as $party)
 														<option value="{{ $party->id }}">{{ $party->partyName }}</option>
 													@endforeach
 												</select>
+												@error('party_selector')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+						                        @enderror
 											</div>
 										</div>
 									</td>
 									<td><!--<div id="outputDiv">--output here--</div> -->
 										<div class="form-group" id="outputDiv"></div>
+										@error('partyxpercent')
+				                            <span class="invalid-feedback" role="alert">
+				                                <strong>{{ $message }}</strong>
+				                            </span>
+				                        @enderror
 									</td>
                                  </tr>
 								
@@ -52,28 +77,48 @@
                                     <td>
 										<div class="form-group"><label>Item Name</label>
 											<div class="col-md-8">
-												<input type="text" name="item_name" placeholder="Enter item name here . ." class="form-control " required>
+												<input type="text" name="item_name" placeholder="Enter item name here . ." class="form-control @error('item_name') is-invalid @enderror">
+												@error('item_name')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>
 									<td>
 										<div class="form-group"><label>Before Melting Weight</label>
 											<div class="col-md-8">
-												<input type="number" name="before_weight" id="BFMW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control " required>
+												<input type="number" name="before_weight" id="BFMW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control @error('before_weight') is-invalid @enderror">
+												@error('before_weight')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>
                                     <td>
 										<div class="form-group"><label>After Melting Weight</label>
 											<div class="col-md-8">
-												<input type="number" name="after_weight" id="AFMW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control " required>
+												<input type="number" name="after_weight" id="AFMW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control @error('after_weight') is-invalid @enderror" >
+												@error('after_weight')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>
 									<td>
 										<div class="form-group"><label>Sample Weight</label>
 											<div class="col-md-8">
-												<input type="number" name="sample_weight" id="SW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control" required>
+												<input type="number" name="sample_weight" id="SW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control @error('sample_weight') is-invalid @enderror" required>
+												@error('sample_weight')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>
@@ -83,28 +128,48 @@
                                     <td>
 										<div class="form-group"><label>Recieved Weight</label>
 											<div class="col-md-8">
-												<input type="number" name="recieved_weight" id="RCDW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control" required>
+												<input type="number" name="recieved_weight" id="RCDW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control @error('recieved_weight') is-invalid @enderror" >
+												@error('recieved_weight')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>
 									<td>
 										<div class="form-group"><label>Fire Assay Weight</label>
 											<div class="col-md-8">
-												<input type="number" name="fire_assay_weight" id="FAW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control " required>
+												<input type="number" name="fire_assay_weight" id="FAW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control @error('fire_assay_weight') is-invalid @enderror" >
+												@error('fire_assay_weight')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>
 									<td>
 										<div class="form-group"><label>Refine Weight</label>
 											<div class="col-md-8">
-												<input type="number" name="refine_weight" id="RFNW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control " required>
+												<input type="number" name="refine_weight" id="RFNW" placeholder="Weight in Grams." step="0.001" value="0.000" class="form-control @error('refine_weight') is-invalid @enderror" >
+												@error('refine_weight')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>
 									<td>
 										<div class="form-group"><label>Purity %</label>
 											<div class="col-md-8">
-												<input type="number" name="purity_percentage" id="PUPT" step="0.01" value="0.00" class="form-control " required>
+												<input type="number" name="purity_percentage" id="PUPT" step="0.01" value="0.00" class="form-control @error('purity_percentage') is-invalid @enderror" >
+												@error('purity_percentage')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>
@@ -114,7 +179,12 @@
 										<div class="form-group ">
 											<label>CGST %</label>
 											<div class="col-md-8">
-												<input type="number" name="cgst_percent" id="CGST" step="0.01" value="2.50" class="form-control" required>
+												<input type="number" name="cgst_percent" id="CGST" step="0.01" value="2.50" class="form-control @error('cgst_percent') is-invalid @enderror" >
+												@error('cgst_percent')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>
@@ -122,21 +192,36 @@
 										<div class="form-group">
 											<label>SGST %</label>
 											<div class="col-md-8">
-												<input type="number" name="sgst_percent" id="SGST" step="0.01" value="2.50" class="form-control" required>
+												<input type="number" name="sgst_percent" id="SGST" step="0.01" value="2.50" class="form-control @error('sgst_percent') is-invalid @enderror" >
+												@error('sgst_percent')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>
                                    <td>
 										<div class="form-group"><label>Total amount</label>
 											<div class="col-md-8">
-												<input type="numer" name="total_amount" id="TAMNT" step="0.001" value="0.000" class="form-control" required>
+												<input type="numer" name="total_amount" id="TAMNT" step="0.001" value="0.000" class="form-control @error('total_amount') is-invalid @enderror" >
+												@error('total_amount')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>
 									<td>
 										<div class="form-group"><label>Remarks</label>
 											<div class="col-md-8">
-												<textarea type="text" name="remarks" id="REMARKS" placeholder="Type here . ." class="form-control" rowspan="3" required></textarea>
+												<textarea type="text" name="remarks" id="REMARKS" placeholder="Type here . ." class="form-control @error('remarks') is-invalid @enderror" rowspan="3"></textarea>
+												@error('remarks')
+						                            <span class="invalid-feedback" role="alert">
+						                                <strong>{{ $message }}</strong>
+						                            </span>
+				                        		@enderror
 											</div>
 										</div>
 									</td>

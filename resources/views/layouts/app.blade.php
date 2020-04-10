@@ -123,7 +123,7 @@ body {margin:0;font-family:Arial}
 		color:black;
 	}
 </style>	
-		
+	@stack('css')	
 </head>
 <body>
 <div class="topnav navbar" id="myTopnav">
