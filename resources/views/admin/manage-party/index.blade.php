@@ -7,7 +7,7 @@
         <div class="card-body">
           <h4 class="card-title" style="color:white; background:black; padding:10px;">Add party</h4>
           <div class="feed-widget">
-          <form class="form-horizontal form-material">
+          <form class="form-horizontal form-material" id="addParty">
             <div class="form-group">
             <label class="col-md-12">Party Name</label>
             <div class="col-md-12">
@@ -108,40 +108,68 @@
 @endsection
 @push('scripts')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
   <script>
     $(document).ready(function() {
       $('#addpartybtn').click(function(){
         // alert('hello world');
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
 
-        var formData = {
-            partyname:    $('#partyname').val(),
-            partycontact: $('#partycontact').val(),
-            partygst:     $('#partygst').val(),
-            partypercent: $('#partypercent').val(),
-        }
-        console.log(formData);
-        $.ajax({  
-          type: 'POST',
-          url: '{{ route('store.party') }}',
-          data: formData,
-          dataType: 'json',
-          success: function(html)
-          { 
-            $('#result_here').html(html);
-            $('#result_here').show();
-            $('#result_here').fadeOut(3000);
+        $("#addParty").validate({
+          rules: {
+              partyname: {
+                      required: true,
+                  },
+              partycontact: {
+                  required: true,
+              },          
+              partygst: {
+                  required: true,
+              },
+              partypercent: {
+                required:true,
+              },
+
           },
-          error: function(data) {
-            $('#result_here').html(data);
-            $('#result_here').show();
-            $('#result_here').fadeOut(3000);
-          }
-        });
+          messages: {
+              partyname: {
+                      required: "Please enter pary name.",
+                  },
+              partycontact: {
+                  required: "Please enter pary's contact number.",
+              },          
+              partygst: {
+                  required: "Please enter GSTIN Number.",
+              },
+              partypercent:{
+                required:"Please party percentage parameter."
+              }
+          },
+          submitHandler: function(form) {
+            $.ajaxSetup({
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+            });
+            var formData = {
+                partyname:    $('#partyname').val(),
+                partycontact: $('#partycontact').val(),
+                partygst:     $('#partygst').val(),
+                partypercent: $('#partypercent').val(),
+            }
+            console.log(formData);
+            $.ajax({  
+              type: 'POST',
+              url: '{{ route('store.party') }}',
+              data: formData,
+              dataType: 'json',
+              success: function(html)
+              { 
+                toastr.success(html);
+              }
+          });
+        }
+      });
     });
 
     $('#getPartydetails').click(function(){
@@ -163,9 +191,6 @@
             $("#xpercent").val(data.partyPercentage);
             $("#xid").val(data.id);
             $("#editForm").show();
-          },
-          error: function(data) {
-            
           }
         });
     });

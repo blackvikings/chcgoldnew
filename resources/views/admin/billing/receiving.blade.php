@@ -5,7 +5,8 @@
             <div class="card-body">
 				<h4 class="card-title" style="color:white; background:black; padding:10px;">Add New Bill</h4>
 				<div class="feed-widget">
-					<form class="form-material" action="" method="POST" enctype='multipart/form-data'>
+					<form class="form-material" action="{{ route('bill.store') }}" method="POST" enctype='multipart/form-data'>
+						@csrf
                         <div class="table-responsive"> 
                             <table class="table table-striped">
 							
@@ -171,32 +172,19 @@ $(document).ready(function(){
           }
         });
         var pcs_val  = $(this).val();
-        // console.log(pcs_val);
+        console.log(pcs_val);
         $.ajax({  
           type: 'POST',
           url: '{{ route('party.parameter') }}',
           data: {pcs: pcs_val},
           dataType: 'json',
-          success: function(html)
+          success: function(data)
           { 
-          	console.log(html);
-            // $('#outputDiv').html(theResponse);
-          },
-          error: function(data) {
-            
+          	// console.log(data);
+            $('#outputDiv').html('<label>Party % parameter</label><div class="col-md-8"><input type="number" name="partyxpercent" step="0.01" class="form-control" value="'+data.partyPercentage+'" required></div>');
           }
         });
-    });
-
-    // $("#pcs").on('change', function(){
-    //     var pcs_val  = $(this).val();
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "",
-    //         data: { pcs: pcs_val},
-    //         success: function(theResponse) {}                   
-    //     });
-    // });	 
+    }); 
 });
 </script>
  

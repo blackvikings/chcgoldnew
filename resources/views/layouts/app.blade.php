@@ -13,6 +13,7 @@
   <link href="{{ asset('public/assets/admin/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/assets/admin/dist/css/style.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/assets/admin/datepiker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" media="screen">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 	<style>
 body {margin:0;font-family:Arial}
 
@@ -214,6 +215,8 @@ function myFunction() {
 {{-- <script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/bootstrap/js/bootstrap.min.js') }}"></script> --}}
 <script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/js/bootstrap-datetimepicker.js') }}" charset="UTF-8"></script>
 <script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/js/locales/bootstrap-datetimepicker.fr.js') }}" charset="UTF-8"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+@stack('scripts')
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({
         //language:  "fr",
@@ -247,7 +250,28 @@ function myFunction() {
         forceParse: 0
     });
 </script>
-@stack('scripts')
+@if(Session::has('message'))
+<script>
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+</script>
+@endif
 </body>
 
 </html>
