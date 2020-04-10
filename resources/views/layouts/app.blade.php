@@ -128,8 +128,8 @@ body {margin:0;font-family:Arial}
 <body>
 <div class="topnav navbar" id="myTopnav">
 	<div class="navbar-header">
-		<a class="navbar-brand" href="index.php"><img src="{{ asset('public/assets/chc.jpg') }}" width="150px"/></a>
-  </div>
+		<a class="navbar-brand" href="{{ route('manage.party') }}"><img src="{{ asset('public/assets/chc.jpg') }}" width="150px"/></a>
+  	</div>
   @if(Auth::check())
       <a href="{{ route('manage.party') }}">Manage Party</a>
       <a href="{{ route('receiving') }}">Receiving</a>
