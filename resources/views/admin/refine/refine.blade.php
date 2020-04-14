@@ -1,23 +1,5 @@
-<?php
-// Initialize the session
-session_start();
-$mystatus = ".";
-
-                                        date_default_timezone_set("Asia/Kolkata");   //India time (GMT+5:30)
-                                        $currentdate = date('Y-m-d');
-
-// If session variable is not set it will redirect to login page
-                            if(!isset($_SESSION['Contact']) && !isset($_SESSION['Branch'])){
-                                 header("location: ../");
-                                 exit;
-                            }
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEADERs
-include 'config.php';
-include 'header.php';
-?>
-
-
-
+@extends('layouts.app')
+@section('content')
  <div class="row">
  
 	<div class="col-md-12">

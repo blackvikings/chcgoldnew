@@ -13,7 +13,7 @@ class FireassayController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.fireassay.fireassay');
     }
 
     /**

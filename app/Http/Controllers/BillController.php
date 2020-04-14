@@ -97,9 +97,10 @@ class BillController extends Controller
      * @param  \App\Bill  $bill
      * @return \Illuminate\Http\Response
      */
-    public function show(Bill $bill)
+    public function show(Request $request)
     {
-        //
+        return $request->all();
+        // $bill = Bill::
     }
 
     /**

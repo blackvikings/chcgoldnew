@@ -1,22 +1,5 @@
-<?php
-// Initialize the session
-session_start();
-$mystatus = ".";
-
-                                        date_default_timezone_set("Asia/Kolkata");   //India time (GMT+5:30)
-                                        $currentdate = date('Y-m-d');
-
-// If session variable is not set it will redirect to login page
-                            if(!isset($_SESSION['Contact']) && !isset($_SESSION['Branch'])){
-                                 header("location: ../");
-                                 exit;
-                            }
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEADERs
-include 'config.php';
-include 'header.php';
-?>
-
-
+@extends('layouts.app')
+@section('content')
 
 <div class="row">
 
@@ -64,25 +47,26 @@ include 'header.php';
                                     
                                     <div id="firedetails"> </div>
 
-                                    
+@endsection
+@push('scripts')
                                      <script>
                                          
                                          $('#datebtn').click(function(){
                                              
-                                                 $.ajax({
+                                   $.ajax({
         
-  type: 'POST',
-  url: 'ajax.php',
-  data: { datebtn: $('#datebtn').val(), start_date: $('#start_date').val(), end_date: $('#end_date').val() },
-  success: function(html)
-  {
-      $('#firedetails').html(html);
-      $('#firedetails').show();
-      //$('#contact_results').fadeOut(3000);
-  }
-        
-    });
-});
+                                              type: 'POST',
+                                              url: 'ajax.php',
+                                              data: { datebtn: $('#datebtn').val(), start_date: $('#start_date').val(), end_date: $('#end_date').val() },
+                                              success: function(html)
+                                              {
+                                                  $('#firedetails').html(html);
+                                                  $('#firedetails').show();
+                                                  //$('#contact_results').fadeOut(3000);
+                                              }
+                                                    
+                                                });
+                                            });
                                      </script>
                                     
                                     
@@ -95,9 +79,4 @@ include 'header.php';
 
 
 </div>
-<?php include 'footer.php';?>
-
-
-
-
-
+ @endpush

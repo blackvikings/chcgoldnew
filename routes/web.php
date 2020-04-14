@@ -64,6 +64,7 @@ Route::post('/party-parameter', 'BillController@partyParameter')->name('party.pa
 Route::post('/bill-store', 'BillController@store')->name('bill.store');
 
 Route::get('/edit-receiving', 'BillController@edit')->name('edit.receiving');
+Route::post('/get-bill', 'BillController@show')->name('bill.edit');
 
 Route::get('/fireassay', 'FireassayController@index')->name('fireassay');
 

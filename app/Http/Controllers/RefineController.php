@@ -13,7 +13,7 @@ class RefineController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.refine.refine');
     }
 
     /**
