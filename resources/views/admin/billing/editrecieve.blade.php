@@ -1,4 +1,4 @@
-@extends('layouts.app')
+ @extends('layouts.app')
 @section('content')
     <div class="col-md-12">
         <div class="card">
@@ -71,9 +71,14 @@ $('#searchxxz').click(function(){
 			$( ".viewxyx" ).click(function() {
                 var rdx = $(this).attr('id');
                 //alert( rdx );
+                $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                });
                 $.ajax({
-                    type: 'GET',
-                    url: 'ajax.php',
+                    type: 'POST',
+                    url: '{{ route('full.details') }}',
                     data: { q: rdx},
                     success: function(html)
                     {
