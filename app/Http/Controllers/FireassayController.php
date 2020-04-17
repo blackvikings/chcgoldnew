@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Bill;
 class FireassayController extends Controller
 {
     /**
@@ -21,9 +21,47 @@ class FireassayController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $bills = Bill::whereBetween('billdate', [$request->start_date, $request->end_date])->with('party')->get();
+
+        $data = '';
+        // return $bills;
+        $qty = 0;
+        if (!$bills->isEmpty()) {
+           
+        
+            $data .= '<br/><div class="col-md-12" style="color:yellow; background:black;font-weight:bold;"><table class="table"><thead><tr><th>Bill No.</th><th>Party Name</th><th>Fire Assay Weight</th><th>Date</th><th>Purity</th><th>Fine</th></tr></thead><tbody>';
+
+
+            foreach ($bills as $bill) {
+                $fne = number_format(($bill->fireassayweight * $bill->assaypurity)/100, 3);
+                $qty += number_format($fne, 3);
+                $data .= '<tr>
+                            <td>'.$bill->billserial.'</td>
+                            <td>'.$bill->party->partyName.'</td>
+                            <td>'.$bill->fireassayweight.'</td>
+                            <td>'.$bill->billdate.'</td>
+                            <td>'.$bill->assaypurity.'</td>
+                            <td>'.number_format(($bill->fireassayweight * $bill->assaypurity)/100, 3).'</td>
+                          </tr>';
+            }
+
+            $data .= '<tr>
+                        <td colspan="4" style="text-align:right;"></td>
+                        <td> Total Fine :</td>
+                        <td>'.number_format($qty, 3).'</td>
+                      </tr>
+                    </tbody>
+                 </table>
+                </div>';
+        }
+        else
+        {
+            $data .= '0 results'; 
+        }
+
+        return $data;
     }
 
     /**

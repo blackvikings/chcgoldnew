@@ -600,5 +600,4 @@ $(E).find('#submit_btn ').click(function(){
 
      
 </script>
- 
-<?php include 'footer.php';?>
+@endsection

@@ -66,10 +66,10 @@ Route::post('/bill-store', 'BillController@store')->name('bill.store');
 Route::get('/edit-receiving', 'BillController@edit')->name('edit.receiving');
 Route::post('/get-bill', 'BillController@show')->name('bill.edit');
 Route::post('/get-bill-details', 'BillController@fullDetails')->name('full.details');
-
 Route::post('/update-bill/{billid}', 'BillController@update')->name('update.bill');
 
 Route::get('/fireassay', 'FireassayController@index')->name('fireassay');
+Route::post('fireassay-bills', 'FireassayController@create')->name('fireassay.bills');
 
 Route::get('/refine', 'RefineController@index')->name('refine');
 
