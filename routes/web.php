@@ -72,6 +72,8 @@ Route::get('/fireassay', 'FireassayController@index')->name('fireassay');
 Route::post('fireassay-bills', 'FireassayController@create')->name('fireassay.bills');
 
 Route::get('/refine', 'RefineController@index')->name('refine');
+Route::post('/refine-single', 'RefineController@create')->name('refine.single');
+Route::post('/refine-update', 'RefineController@update')->name('update.bill');
 
 Route::get('/stock', 'StockController@index')->name('stock');
 
