@@ -9,19 +9,22 @@
 				
 					<form class="form-inline" action="" method="POST">
                         <div class="form-group"><label>Select Date :</label>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <input type="date" name="Single_Date" id="singledatewa">
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <button type="button" class="btn btn-primary" name="Singledatebtn" id="Singledatebtn">List details</button>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <button type="button" class="btn btn-primary" name="refreshbatches" id="refreshbatches">Load Batch</button>
                             </div>
+                        </div>
+                        <div class="form-group" style="width: 100%;">
+                            <div class="col-md-3" id="showex"></div>
                         </div>
                         <div class="row">
                             <div class="form-group" style="width: 100%;">
@@ -189,79 +192,79 @@
             });
         });     
     });
-    // $('#refreshbatches').click(function(){
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: 'ajax.php',
-    //         data: { qmdatewa: $('#singledatewa').val()},
-    //         success: function(html)
-    //         {
-              
-    //             $('#showex').html(html);
-    //             $("#batchxyzssnm").on("change", function () {
-    //             var myDate = $(this).val();
-    //             $.ajax({
-    //                 type: 'POST',
-    //                 url: 'ajax.php',
-    //                 data: { datesort: $('#singledatewa').val(), batchnumber: $(this).val()},
-    //                 success: function(html)
-    //                 {
-    //                     $('#batch_results').html(html);
-    //                     $('.table-mmnn tr:not(:first)').each(function (i,E) {
-    //                         $(E).find( '#toberecovered' ).focus(function() {
-    //                             var a = $(E).find('#refineshort').val();
-    //                             var b = $(E).find('#puresamplesum').val();
-    //                             var total = parseFloat(Number(a).toFixed(3)) + parseFloat(Number(b).toFixed(3));
-    //                             $(E).find('#toberecovered ').val(parseFloat(Number(total).toFixed(3)));
-    //                         });
-    //                         $(E).find( '#refineshort' ).focus(function() {
-    //                             var a = $(E).find('#refinecweightsum').val();
-    //                             var b = $(E).find('#recievedweight').val();
-    //                             var c = $(E).find('#purerecievedshort').val();
-    //                             var total = parseFloat(Number(a).toFixed(3)) - parseFloat(Number(b).toFixed(3)) + parseFloat(Number(c).toFixed(3));
-    //                             $(E).find('#refineshort ').val(parseFloat(Number(total).toFixed(3)));
-    //                         });
-    //                         $(E).find( '#expectedinc' ).focus(function() {
-    //                             var a = $(E).find('#fromcustomersum').val();
-    //                             var b = $(E).find('#silver').val();
-    //                             var c = $(E).find('#purerecievedshort').val();
-    //                             var d = $(E).find('#nineninefive').val();
-    //                             var total = parseFloat(Number(a).toFixed(3)) + parseFloat(Number(b).toFixed(3)) + parseFloat(Number(c).toFixed(3)) - parseFloat(Number(d).toFixed(3));
-    //                             $(E).find('#expectedinc ').val(parseFloat(Number(total).toFixed(3)));
-    //                         });
-    //                         $(E).find( '#recievedweight' ).focus(function() {
-    //                             var a = $(E).find('#receivedweightss ').val();
-    //                             var b = $(E).find('#silver ').val();
-    //                             var total = parseFloat(Number(a).toFixed(3)) - parseFloat(Number(b).toFixed(3));
-    //                             $(E).find('#recievedweight ').val(parseFloat(Number(total).toFixed(3)));
-    //                         });
-    //                         $(E).find( '#purerecievedshort' ).focus(function() {
-    //                             var a = $(E).find('#recievedweight ').val();
-    //                             var b = $(E).find('#refinepurity ').val();
-    //                             var total = parseFloat(Number(a).toFixed(3)) - (parseFloat(Number(a).toFixed(3) * parseFloat(Number(b).toFixed(2))/100));
-    //                             $(E).find('#purerecievedshort ').val(parseFloat(Number(total).toFixed(3)));
-    //                         });
-    //                         $(E).find('#submit_btn_day_Totalrefine').click(function(){
-    //                             $.ajax({   
-    //                                 type: 'POST',
-    //                                 url: 'ajax.php',
-    //                                 data: { totalrefineforday: 'totalrefineforday', batch_date: $(E).find('#startdatex ').val() , Batchnumx: $('#batchxyzssnm').val() , Collection: $(E).find('#collectionsum ').val(), Sample: $(E).find('#samplesum ').val(), 
-    //                                 Pure_Sample: $(E).find('#puresamplesum ').val(), Refine_Weight: $(E).find('#refineweightsum ').val(), nineninefivepointzero: $(E).find('#nineninefive ').val(), 
-    //                                 Expected_INC: $(E).find('#expectedinc ').val(), Refine_Short: $(E).find('#refineshort ').val(), To_Be_Recovered: $(E).find('#toberecovered ').val(), receivedweightss: $(E).find('#receivedweightss ').val()  },
-    //                                 success: function(html)
-    //                                 {
-    //                                     $('#result_here').html('<p class=\"alert alert-success\">'+html+'</p>');
-    //                                     $('#result_here').show();
-    //                                     $('#result_here').fadeOut(3000);
-    //                                 }
-    //                             });
-    //                         });
-    //                     });
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }); 
-    
+
+    $('#refreshbatches').click(function(){
+        $.ajax({
+            type: 'POST',
+            url: 'ajax.php',
+            data: { qmdatewa: $('#singledatewa').val()},
+            success: function(html)
+            {
+                $('#showex').html(html);
+                $("#batchxyzssnm").on("change", function () {
+                    var myDate = $(this).val();
+                    $.ajax({
+                        type: 'POST',
+                        url: 'ajax.php',
+                        data: { datesort: $('#singledatewa').val(), batchnumber: $(this).val()},
+                        success: function(html)
+                        {
+                            $('#batch_results').html(html);
+                            $('.table-mmnn tr:not(:first)').each(function (i,E) {
+                                $(E).find( '#toberecovered' ).focus(function() {
+                                    var a = $(E).find('#refineshort').val();
+                                    var b = $(E).find('#puresamplesum').val();
+                                    var total = parseFloat(Number(a).toFixed(3)) + parseFloat(Number(b).toFixed(3));
+                                    $(E).find('#toberecovered ').val(parseFloat(Number(total).toFixed(3)));
+                                });
+                                $(E).find( '#refineshort' ).focus(function() {
+                                    var a = $(E).find('#refinecweightsum').val();
+                                    var b = $(E).find('#recievedweight').val();
+                                    var c = $(E).find('#purerecievedshort').val();
+                                    var total = parseFloat(Number(a).toFixed(3)) - parseFloat(Number(b).toFixed(3)) + parseFloat(Number(c).toFixed(3));
+                                    $(E).find('#refineshort ').val(parseFloat(Number(total).toFixed(3)));
+                                });
+                                $(E).find( '#expectedinc' ).focus(function() {
+                                    var a = $(E).find('#fromcustomersum').val();
+                                    var b = $(E).find('#silver').val();
+                                    var c = $(E).find('#purerecievedshort').val();
+                                    var d = $(E).find('#nineninefive').val();
+                                    var total = parseFloat(Number(a).toFixed(3)) + parseFloat(Number(b).toFixed(3)) + parseFloat(Number(c).toFixed(3)) - parseFloat(Number(d).toFixed(3));
+                                    $(E).find('#expectedinc ').val(parseFloat(Number(total).toFixed(3)));
+                                });
+                                $(E).find( '#recievedweight' ).focus(function() {
+                                    var a = $(E).find('#receivedweightss ').val();
+                                    var b = $(E).find('#silver ').val();
+                                    var total = parseFloat(Number(a).toFixed(3)) - parseFloat(Number(b).toFixed(3));
+                                    $(E).find('#recievedweight ').val(parseFloat(Number(total).toFixed(3)));
+                                });
+                                $(E).find( '#purerecievedshort' ).focus(function() {
+                                    var a = $(E).find('#recievedweight ').val();
+                                    var b = $(E).find('#refinepurity ').val();
+                                    var total = parseFloat(Number(a).toFixed(3)) - (parseFloat(Number(a).toFixed(3) * parseFloat(Number(b).toFixed(2))/100));
+                                    $(E).find('#purerecievedshort ').val(parseFloat(Number(total).toFixed(3)));
+                                });
+                                $(E).find('#submit_btn_day_Totalrefine').click(function(){
+                                    $.ajax({   
+                                        type: 'POST',
+                                        url: 'ajax.php',
+                                        data: { totalrefineforday: 'totalrefineforday', batch_date: $(E).find('#startdatex ').val() , Batchnumx: $('#batchxyzssnm').val() , Collection: $(E).find('#collectionsum ').val(), Sample: $(E).find('#samplesum ').val(), 
+                                        Pure_Sample: $(E).find('#puresamplesum ').val(), Refine_Weight: $(E).find('#refineweightsum ').val(), nineninefivepointzero: $(E).find('#nineninefive ').val(), 
+                                        Expected_INC: $(E).find('#expectedinc ').val(), Refine_Short: $(E).find('#refineshort ').val(), To_Be_Recovered: $(E).find('#toberecovered ').val(), receivedweightss: $(E).find('#receivedweightss ').val()  },
+                                        success: function(html)
+                                        {
+                                            $('#result_here').html('<p class=\"alert alert-success\">'+html+'</p>');
+                                            $('#result_here').show();
+                                            $('#result_here').fadeOut(3000);
+                                        }
+                                    });
+                                });
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    }); 
 </script>
 @endpush
