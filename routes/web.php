@@ -74,6 +74,9 @@ Route::post('fireassay-bills', 'FireassayController@create')->name('fireassay.bi
 Route::get('/refine', 'RefineController@index')->name('refine');
 Route::post('/refine-single', 'RefineController@create')->name('refine.single');
 Route::post('/refine-update', 'RefineController@update')->name('update.bill');
+Route::post('/load-batch', 'RefineController@batch')->name('load.batch');
+Route::post('/total-batch', 'RefineController@loadbatch')->name('total.batch');
+Route::post('/save-refine', 'RefineController@store')->name('save.refine');
 
 Route::get('/stock', 'StockController@index')->name('stock');
 

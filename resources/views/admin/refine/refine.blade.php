@@ -23,7 +23,7 @@
                                 <button type="button" class="btn btn-primary" name="refreshbatches" id="refreshbatches">Load Batch</button>
                             </div>
                         </div>
-                        <div class="form-group" style="width: 100%;">
+                        <div class="form-group">
                             <div class="col-md-3" id="showex"></div>
                         </div>
                         <div class="row">
@@ -194,18 +194,24 @@
     });
 
     $('#refreshbatches').click(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $.ajax({
             type: 'POST',
-            url: 'ajax.php',
+            url: '{{ route('load.batch') }}',
             data: { qmdatewa: $('#singledatewa').val()},
             success: function(html)
             {
+                // console.log(html);
                 $('#showex').html(html);
                 $("#batchxyzssnm").on("change", function () {
                     var myDate = $(this).val();
                     $.ajax({
                         type: 'POST',
-                        url: 'ajax.php',
+                        url: '{{ route('total.batch') }}',
                         data: { datesort: $('#singledatewa').val(), batchnumber: $(this).val()},
                         success: function(html)
                         {
@@ -247,7 +253,7 @@
                                 $(E).find('#submit_btn_day_Totalrefine').click(function(){
                                     $.ajax({   
                                         type: 'POST',
-                                        url: 'ajax.php',
+                                        url: '{{ route('save.refine') }}',
                                         data: { totalrefineforday: 'totalrefineforday', batch_date: $(E).find('#startdatex ').val() , Batchnumx: $('#batchxyzssnm').val() , Collection: $(E).find('#collectionsum ').val(), Sample: $(E).find('#samplesum ').val(), 
                                         Pure_Sample: $(E).find('#puresamplesum ').val(), Refine_Weight: $(E).find('#refineweightsum ').val(), nineninefivepointzero: $(E).find('#nineninefive ').val(), 
                                         Expected_INC: $(E).find('#expectedinc ').val(), Refine_Short: $(E).find('#refineshort ').val(), To_Be_Recovered: $(E).find('#toberecovered ').val(), receivedweightss: $(E).find('#receivedweightss ').val()  },
