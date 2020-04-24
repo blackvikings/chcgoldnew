@@ -12,6 +12,10 @@ use Redirect;
 use Session;
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
      /**
      * Create a new controller instance.
      *

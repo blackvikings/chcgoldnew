@@ -29,7 +29,7 @@ class HomeController extends Controller
         }
         elseif(Auth::user()->hasRole('operator'))
         {
-
+            
         }
     }
 }
