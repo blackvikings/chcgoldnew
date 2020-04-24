@@ -1,244 +1,68 @@
-<?php
-// Initialize the session
-session_start();
-$mystatus = ".";
-
-                                        date_default_timezone_set("Asia/Kolkata");   //India time (GMT+5:30)
-                                        $currentdate = date('Y-m-d');
-
-// If session variable is not set it will redirect to login page
-                            if(!isset($_SESSION['Contact']) && !isset($_SESSION['Branch'])){
-                                 header("location: ../");
-                                 exit;
-                            }
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEADERs
-include 'config.php';
-include 'header.php';
-?>
-
-
-
- <div class="row">
- 
+@extends('layouts.app')
+@section('content')
+<div class="row">
 	<div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                               <!-- <form action="" method="POST">
-                                <input type="text" name="enquiry_id" value="'.$enqid.'" hidden/>
-                                <button type="submit" class="btn waves-effect ml-auto close" name="close_enquiry">&times;</button>
-                                </form>-->
-                                <h4 class="card-title" style="color:white; background:black; padding:10px;">Refine To Coin</h4>
-                                <div class="feed-widget">
-                                    <!--<form class="form-material">-->
-                                    <!--    <div class="form-group"><label>Search by name / bill number / remark / date (format : <b>DD-MM-YYYY</b> )</label>-->
-                                            
-                                    <!--        <div class="col-md-12">-->
-                                    <!--            <input type="text" size="30"  class="form-control" placeholder=" 🔍 Search bill details here" onkeyup="showResult(this.value)"></input>-->
-                                    <!--        </div>-->
-                                    <!--    </div>-->
-                                    <!--</form>-->
-                                    
-                                    <div id="contact_results"></div>
-                                    
-                                    
-                                    
-                                    <form class="form-inline" method="POST" action="">
-                                        
-                                        <div class="form-group"><label>Select Month :</label>
-                                            <div class="col-md-4">
-                                                <select name="D_Month" id="D_Month">
-                                                    <!--<option selected disbaled>- Select Month -</option>-->
-                                                    <option value="01">January</option>
-                                                    <option value="02">Febuary</option>
-                                                    <option value="03">March</option>
-                                                    <option value="04">April</option>
-                                                    <option value="05">May</option>
-                                                    <option value="06">June</option>
-                                                    <option value="07">July</option>
-                                                    <option value="08">August</option>
-                                                    <option value="09">September</option>
-                                                    <option value="10">October</option>
-                                                    <option value="11">November</option>
-                                                    <option value="12">December</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-md-4">
-                                                <button type="submit" class="btn btn-primary" name="Monthdatebtn" id="Monthdatebtn">List details</button>
-                                            </div>
-                                        </div>
-                                        
-                                    </form>
-                                    
-                                    <?php
-                                    
-                                      if(isset($_POST["D_Month"])){
-                            
-                            $startdate = $_POST["D_Month"];
-                            //$startdate = date_create($_POST["D_Month"]);
-                            //$startdate = date_format($startdate,"m");
-                            // $enddate = date_create($_POST["end_date"]);
-                            // $enddate =  date_format($enddate,"Y-m-d");
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-$sql = "SELECT * FROM refinetotal WHERE MONTH(batchdate) = '$startdate' AND YEAR(batchdate) = YEAR(CURDATE())";
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    
-    $qqio = 0;
-    
-    echo'   <br/>
-        
-        <div class="table-responsive">
-        <table class="table-stock" id="table-stripedxyz" style="font-weight:bold;">
-    <thead>
-    
-        <tr>
-            <th>Batch Date</th>
-            <th>Batch</th>
-            <th>Received With with ss</th>
-            <th>Coin Stock</th>
-            <th>Coin Type</th>
-            <th>Loss</th>
-            <th>Update Data</th>
-        </tr>
-        
-        
-    </thead>
-    <tbody>
-    ';
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        
-        $qqio = $qqio + 1;
-        
-    echo '
-     
-      <tr class="mnkliop" id="'.$qqio.'"><form id="my_form">
-        <td><input type="text" id="batchdatex" name="party_name" value="'.$row["batchdate"].'" class="form-control" style="width: auto;" required readonly=""></td>
-        <td><input type="text" id="batchkramank" name="party_name" value="'.$row["batch"].'" class="form-control" style="width: auto;" required readonly=""></td>
-        <td><input type="number" id="receivedwithss" name="party_name" value="'.$row["receivedweightwithss"].'" class="form-control" style="width: auto;" required readonly=""></td>
-        <td><input type="number" id="stockcoin" name="party_name" value="'.$row["coinstock"].'" step="0.001"  class="form-control" style="width: auto;" required></td>
-        
-        <!--<td><input type="number" id="cointype" name="party_name" value="$row["cointype"]" class="form-control" style="width: auto;" required></td>-->
-        <td>
-            <select id="cointype" class="form-control" style="width: auto;" required>
-                <option '; if(($row["cointype"]!="99.5")||($row["cointype"]!="100")) echo 'selected="selected"'; echo ' disbaled>- Select Coin Type -</option>
-                <option value="99.5" '; if($row["cointype"]=="99.5") echo 'selected="selected"'; echo '>995</option>
-                <option value="100" '; if($row["cointype"]=="100") echo 'selected="selected"'; echo '>999</option>
-            </select>
-        </td>
-        
-        <td><input type="number" id="expectedloss" name="party_name" value="'.$row["loss"].'" step="0.001" class="form-control" style="width: auto;" required></td>
-        <td><button type="button" id="update_datax" name="update_datax" class="btn btn-primary" style="width: auto;">Update Data</button></td>
-        </form>
-      </tr>
-      
-   ';
-        
-    }
-
-    echo'   
-    
-    
-    </tbody>
- </table>
-
+    <div class="card">
+        <div class="card-body">
+          <h4 class="card-title" style="color:white; background:black; padding:10px;">Refine To Coin</h4>
+          <div class="feed-widget">
+            <div id="contact_results"></div>
+              <form class="form-inline" method="POST" action="">
+                <div class="form-group"><label>Select Month :</label>
+                  <div class="col-md-4">
+                    <select name="D_Month" id="D_Month">
+                        <!--<option selected disbaled>- Select Month -</option>-->
+                        <option value="01">January</option>
+                        <option value="02">Febuary</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                  </div>
                 </div>
-        ';
-} else {
-    echo "0 results";
-}
-
-mysqli_close($conn);}
- ?>
-
-      
-                                </div>
-                            </div>
-                        </div>
-</div> <!-- stock coin refine-->
-
-
-
-
-
-<div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div id="contact_results"></div>
-                                <h4 class="card-title" style="color:white; background:black; padding:10px;">Journal Section</h4>
-                                <div class="feed-widget">
-                                    
-                                     <form class="form-horizontal form-inline">
-                                    
-                                    
-                                    
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <select class="form-control form-control-line" name="editparty_selector" id="party_selector">
-                                                <?php
-
-    
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $sql = "SELECT * FROM partytable";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-            
-            //echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
-            
-            echo'<option value="'.$row["partyid"].'">'.$row["partyname"].'</option>';
-            
-        }
-    } else {
-        echo'<option>No Data Available !!</option>';
-    }
-$conn->close();
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <select id="accounttype" class="form-control" style="width: auto;" required>
-                                        <option selected disbaled>- Select Account Type -</option>
-                                        <option value="Debit">Deposit Gold</option>
-                                        <option value="Credit">Lend Coins</option>
-                                    </select>
-                                    
-                                    </form>
-                                    
-                                    <div id="accountjournal"></div>
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-</div> <!--Maintain deposit / credit-->
-	
-
-	
- 
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary" name="Monthdatebtn" id="Monthdatebtn">List details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div> <!-- stock coin refine-->
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+          <div id="contact_results"></div>
+          <h4 class="card-title" style="color:white; background:black; padding:10px;">Journal Section</h4>
+          <div class="feed-widget">
+               <form class="form-horizontal form-inline">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <select class="form-control form-control-line" name="editparty_selector" id="party_selector">
+                        </select>
+                    </div>
+                </div>
+                <select id="accounttype" class="form-control" style="width: auto;" required>
+                    <option selected disbaled>- Select Account Type -</option>
+                    <option value="Debit">Deposit Gold</option>
+                    <option value="Credit">Lend Coins</option>
+                </select>
+              </form>
+              <div id="accountjournal"></div>
+          </div>
+      </div>
+    </div>
+  </div> <!--Maintain deposit / credit-->
 </div>
-
-
+@endsection
+@push('scripts')
 <script>
         $('.table-stock tr:not(:first)').each(function (i,E) {
     
@@ -409,6 +233,4 @@ $conn->close();
 	 
 	 
 	 </script>
- 
- 
-<?php include 'footer.php';?>
+@endpush

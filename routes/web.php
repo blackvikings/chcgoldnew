@@ -77,6 +77,8 @@ Route::post('/admin/refine-update', 'RefineController@update')->name('update.bil
 Route::post('/admin/load-batch', 'RefineController@batch')->name('load.batch');
 Route::post('/admin/total-batch', 'RefineController@loadbatch')->name('total.batch');
 Route::post('/admin/save-refine', 'RefineController@store')->name('save.refine');
+Route::post('/admin/get-refines', 'RefineController@show')->name('get.refines');
+Route::delete('/admin/delete-refine/{id}', 'RefineController@destroy')->name('delete.refine');
 
 Route::get('/admin/stock', 'StockController@index')->name('stock');
 

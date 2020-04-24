@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Bill;
 use App\Refine;
 class RefineController extends Controller
@@ -206,9 +207,29 @@ class RefineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function show(Request $request)
     {
-        //
+        $data = '';
+        $refines = Refine::whereMonth('batchdate', $request->D_Month)->whereYear('batchdate', Carbon::now()->year)->get();
+
+        if(!$refines->isEmpty())
+        {
+            $data .= '<table class="table-kklop" id="table-stripedxyz" style="font-weight:bold;"><thead><tr><th>Batch Date</th><th>Batch</th><th>Collection</th><th>Sample</th><th>Pure Sample</th><th>Refine Weight</th><th>995</th><th>Expected Inc.</th><th>Refine Short</th><th>To Be Recovered</th><th>Delete Data</th></tr></thead><tbody>';
+
+            $i = 1;
+            foreach ($refines as $refine) {
+                $data .= '<tr class="mnkliop" id="tablexxy'.$i.'"><form id="my_form"><td><input type="text" id="batchdatex" name="party_name" value="'.$refine->batchdate.'" class="form-control" style="width: 100%;" required readonly=""></td><td><input type="text" id="batchkramank" name="party_name" value="'.$refine->batch.'" class="form-control" style="width: 100%;" required readonly=""></td><td><input type="text" id="collectiondata" name="party_name" value="'.$refine->collection.'" class="form-control" style="width: 100%;" required readonly=""></td><td><input type="text" id="yyyyyyyyy" name="party_name" value="'.$refine->sample.'" class="form-control" style="width: 100%;" required readonly=""></td><td><input type="text" id="eeeeeee" name="party_name" value="'.$refine->puresample.'" class="form-control" style="width: 100%;" required readonly=""></td><td><input type="text" id="ddffee" name="party_name" value="'.$refine->refineweight.'" class="form-control" style="width: 100%;" required readonly=""></td><td><input type="text" id="vvxxvv" name="party_name" value="'.$refine->nineninefive.'" class="form-control" style="width: 100%;" required readonly=""></td><td><input type="text" id="xxvvxx" name="party_name" value="'.$refine->expectedinc.'" class="form-control" style="width: 100%;" required readonly=""></td><td><input type="text" id="xxxvvv" name="party_name" value="'.$refine->refineshort.'" class="form-control" style="width: 100%;" required readonly=""></td><td><input type="text" id="xxvv" name="party_name" value="'.$refine->toberecovered.'" class="form-control" style="width: 100%;" required readonly=""></td><td><button type="button" id="'.$refine->id.'" name="delete_datax" class="btn btn-danger delete_datax" style="width: 100%;">Delete Data</button></td></form></tr>';
+                $i++;
+            }
+
+            $data .= '</tbody></table>';
+        }
+        else
+        {
+            $data = 'No data found.';
+        }
+
+        return $data;
     }
 
     /**
@@ -244,8 +265,9 @@ class RefineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+       Refine::find($id)->delete();
+       return 'Refine deleted successfully!!';
     }
 }
