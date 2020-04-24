@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bill;
+use App\Refine;
 class RefineController extends Controller
 {
     /**
@@ -11,6 +12,15 @@ class RefineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');    
+        // $this->middleware('permission:permissions');
+        // $this->middleware('permission:permission-create', ['only' => ['create','store']]);
+        // $this->middleware('permission:permission-update', ['only' => ['edit','update']]);
+        // $this->middleware('permission:permission-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         return view('admin.refine.refine');
@@ -86,7 +96,40 @@ class RefineController extends Controller
 
     public function store(Request $request)
     {
+        $refine = Refine::where('batchdate', $request->batch_date)->where('batch', $request->Batchnumx)->first();
 
+        if($refine)
+        {
+            $refine->collection = $request->Collection;
+            $refine->receivedweightwithss = $request->receivedweightss;
+            $refine->batch = $request->Batchnumx;
+            $refine->sample = $request->Sample;
+            $refine->puresample = $request->Pure_Sample;
+            $refine->refineweight = $request->Refine_Weight;
+            $refine->nineninefive = $request->nineninefivepointzero;
+            $refine->expectedinc = $request->Expected_INC;
+            $refine->refineshort = $request->Refine_Short;
+            $refine->toberecovered = $request->To_Be_Recovered;
+            $refine->save();
+            return 'Refine update successfully!!';
+        }
+        else
+        {
+            $refine = new Refine;
+            $refine->batchdate = $request->batch_date;
+            $refine->collection = $request->Collection;
+            $refine->receivedweightwithss = $request->receivedweightss;
+            $refine->batch = $request->Batchnumx;
+            $refine->sample = $request->Sample;
+            $refine->puresample = $request->Pure_Sample;
+            $refine->refineweight = $request->Refine_Weight;
+            $refine->nineninefive = $request->nineninefivepointzero;
+            $refine->expectedinc = $request->Expected_INC;
+            $refine->refineshort = $request->Refine_Short;
+            $refine->toberecovered = $request->To_Be_Recovered;
+            $refine->save();
+            return 'Refine save successfully!!';
+        }
     }
 
 

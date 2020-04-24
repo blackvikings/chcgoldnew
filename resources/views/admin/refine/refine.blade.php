@@ -42,7 +42,7 @@
 			</div>
 		</div>
 	</div>
-	{{-- <div class="col-md-12">
+	<div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title" style="color:white; background:black; padding:10px;">Monthly Refine Detail</h4>
@@ -70,14 +70,14 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary" name="Monthdatebtn" id="Monthdatebtn">List details</button>
+                                <button type="button" class="btn btn-primary" name="Monthdatebtn" id="Monthdatebtn">List details</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>  --}}
+    </div> 
 </div>
 @endsection
 @push('scripts')
@@ -209,6 +209,11 @@
                 $('#showex').html(html);
                 $("#batchxyzssnm").on("change", function () {
                     var myDate = $(this).val();
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
                     $.ajax({
                         type: 'POST',
                         url: '{{ route('total.batch') }}',
@@ -251,6 +256,11 @@
                                     $(E).find('#purerecievedshort ').val(parseFloat(Number(total).toFixed(3)));
                                 });
                                 $(E).find('#submit_btn_day_Totalrefine').click(function(){
+                                    $.ajaxSetup({
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
                                     $.ajax({   
                                         type: 'POST',
                                         url: '{{ route('save.refine') }}',
@@ -259,9 +269,7 @@
                                         Expected_INC: $(E).find('#expectedinc ').val(), Refine_Short: $(E).find('#refineshort ').val(), To_Be_Recovered: $(E).find('#toberecovered ').val(), receivedweightss: $(E).find('#receivedweightss ').val()  },
                                         success: function(html)
                                         {
-                                            $('#result_here').html('<p class=\"alert alert-success\">'+html+'</p>');
-                                            $('#result_here').show();
-                                            $('#result_here').fadeOut(3000);
+                                            toastr.success(html);
                                         }
                                     });
                                 });
