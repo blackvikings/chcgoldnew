@@ -81,6 +81,8 @@ Route::post('/admin/get-refines', 'RefineController@show')->name('get.refines');
 Route::delete('/admin/delete-refine/{id}', 'RefineController@destroy')->name('delete.refine');
 
 Route::get('/admin/stock', 'StockController@index')->name('stock');
+Route::post('/admin/get-stocks', 'StockController@create')->name('get.stocks');
+Route::post('/admin/update-stocks', 'StockController@update')->name('update.stocks');
 
 Route::get('/admin/ledger', 'LedgerController@index')->name('ledger');
 
