@@ -51,16 +51,7 @@
             <div class="form-group">
             	<div class="col-md-12">
                 <select class="form-control form-control-line" id="fyyear">
-                                 	<?php // $conn = new mysqli($servername, $username, $password, $dbname);
-    									//if ($conn->connect_error) {die("Connection failed: " . $conn->connect_error);}
-											//$sql = "SELECT * FROM stockledger GROUP BY financialyear";
-   										//	$result = $conn->query($sql);
-											//if ($result->num_rows > 0) {
-        							//			while($row = $result->fetch_assoc()) {
-            					//					echo'<option value="'.$row["financialyear"].'">'.$row["financialyear"].'</option>';
-											//	}
-    									//	} else {echo'<option>No Data Available !!</option>';}
-									//	$conn->close();?>
+                  <option value="@php echo date('Y', strtotime('-1 year')); @endphp-@php echo date('Y', strtotime('-1 year')); @endphp">@php echo date('Y', strtotime('-1 year')); @endphp-@php echo date('Y'); @endphp</option>
                 </select>
               </div>
            	</div>
