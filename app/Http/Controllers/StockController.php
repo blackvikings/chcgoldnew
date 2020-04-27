@@ -89,14 +89,14 @@ class StockController extends Controller
         else
         {
             $bill = new Bill;
-            $bill->coinissuedweight = $request->mdeposit;
+            $bill->coinissuedweight = $request->cissued;
             $bill->party_id = $request->mparty;
-            $bill->cointype = $request->mpurity;
-            $bill->fineweight = $request->mfine;
+            $bill->cointype = $request->cputiry;
+            $bill->fineweight = $request->cfine;
             $bill->billdate = date('Y-m-d');
             $bill->issueddate = date('Y-m-d');
-            $bill->totalbalance = $request->mfine;
-            $bill->description = 'coin deposited by client';
+            $bill->totalbalance = '-'.$request->cfine;
+            $bill->description = 'coin issued to client';
             $bill->coinremark = $request->remark;
             $bill->save();
             $data = 'coin issued to client!!';

@@ -81,9 +81,14 @@
  <script>
 	 
 	$( '#showParty_detailsledger' ).click(function() {
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
     $.ajax({  
       type: 'POST',
-      url: 'ajax.php',
+      url: '{{ route('get.party.ledgers') }}',
       data: { showParty_detailsledger: $('#showParty_detailsledger').val(), start_date: $('#start_date').val(), end_date: $('#end_date').val(), editparty_selectorledger: $('#editparty_selectorledger').val()},
       success: function(html)
       {

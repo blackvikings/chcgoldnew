@@ -87,6 +87,7 @@ Route::post('/admin/get-accounts', 'StockController@account')->name('get.account
 Route::post('/admin/store-account-data', 'StockController@store')->name('store.account');
 
 Route::get('/admin/ledger', 'LedgerController@index')->name('ledger');
+Route::post('/admin/get-party-ledgers', 'LedgerController@create')->name('get.party.ledgers');
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
