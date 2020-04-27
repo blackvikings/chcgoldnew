@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Party;
 
 class LedgerController extends Controller
 {
@@ -17,7 +18,8 @@ class LedgerController extends Controller
      */
     public function index()
     {
-        //
+        $parties = Party::all();
+        return view('admin.ledger.ledger', ['parties' => $parties]);
     }
 
     /**
