@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Party;
 use App\Bill;
+use App\Refine;
+use App\Ledger;
 
 class LedgerController extends Controller
 {
@@ -60,7 +62,94 @@ class LedgerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fyyear = $request->fyyear;
+        $mainyear = explode("-",$fyyear);
+        //echo $mainyear[0];
+        $startdate = $mainyear[0]."-04-01";
+        $enddate = $mainyear[1]."-03-31";
+        
+        $stock995 = 0;
+        $stock100 = 0;
+        $refinestock995 = 0;
+        $refinestock100 = 0;
+        $clientstck995 = 0;
+        $clientstck100 = 0;
+        $clientdpst995 = 0;
+        $clientdpst100 = 0;
+
+        $refines = Refine::whereBetween('batchdate',[$startdate, $enddate])->get();
+
+        if (!$refines->isEmpty()) 
+        {
+            foreach ($refines as $refine) 
+            {
+                if($refine->cointype == 99.5 || $refine->cointype == 99.50)
+                { 
+                    $refinestock995 = $refinestock995 + $refine->coinstock; 
+                }
+                else if($refine->cointype == 100)
+                { 
+                    $refinestock100 = $refinestock100 + $refine->coinstock; 
+                }    
+            }
+        }
+
+        $bills = Bill::whereBetween('billdate', [$startdate, $enddate])->get();
+
+        if(!$bills->isEmpty())
+        {
+            foreach ($bills as $bill) 
+            {
+                if($bill->description == 'coin issued to client')
+                {
+                    if($bill->cointype == 99.5)
+                    { 
+                        $clientstck995 = $clientstck995 + $refine->coinissuedweight; 
+                    }
+                    elseif($refine->cointype == 100)
+                    { 
+                        $clientstck100 = $clientstck100 + $refine->coinissuedweight; 
+                    }
+                } 
+                else 
+                {
+                    if($refine->description == 'coin deposited by client')
+                    {
+                        if($refine->clientpurity == 99.5)
+                        { 
+                            $clientdpst995 = $clientdpst995 + $refine->receivedweight; 
+                        }
+                        elseif($refine->clientpurity == 100)
+                        { 
+                            $clientdpst100 = $clientdpst100 + $refine->receivedweight; 
+                        }
+                    }    
+                }
+            }
+        }
+
+        $ledgers = Ledger::where('financialyear', $fyyear)->get();
+
+        if(!$ledgers->isEmpty())
+        {
+            foreach ($ledgers as $ledger) 
+            {
+                if($refine->cointype == 99.5)
+                {
+                    $stock995 = $leger->openingcoinweight;
+                } 
+                elseif($refine->cointype == 100)
+                { 
+                    $stock100 = $ledger->openingcoinweight;
+                }
+            }
+        }
+
+        $restock995 = $stock995+$refinestock995+$clientdpst995-$clientstck995;
+        $restock100 = $stock100+$refinestock100+$clientdpst100-$clientstck100;
+
+        return $data = '<div class="table-responsive" align="center"><table class="table table-striped"><tr><th>Coin Purity %</th><th>Opening Stock</th><th>Refine Deposited</th><th>Coin Deposited</th><th>Coin Issued</th><th>Closing Stock</th></tr><tr><td>995</td><td>'.$stock995.'</td><td>'.$refinestock995.'</td><td>'.$clientdpst995.'</td><td>'.$clientstck995.'</td><td>'.$restock995.'</td></tr><tr><td>100</td><td>'.$stock100.'</td><td>'.$refinestock100.'</td><td>'.$clientdpst100.'</td><td>'.$clientstck100.'</td><td>'.$restock100.'</td></tr></table></div>';
+
     }
 
     /**

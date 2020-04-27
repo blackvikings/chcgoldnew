@@ -73,10 +73,10 @@
 	 
 	$( '#showParty_detailsledger' ).click(function() {
     $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
     $.ajax({  
       type: 'POST',
       url: '{{ route('get.party.ledgers') }}',
@@ -90,9 +90,14 @@
     });   
   });
   $('#overall').click(function(){
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
 	 	$.ajax({
   			type: 'POST',
-  			url: 'ajax.php',
+  			url: '{{ route('stock.details') }}',
   			data: { stockcomplete: 'stockdetails', fyyear:$('#fyyear').val()},
   			success: function(html)
   			{
