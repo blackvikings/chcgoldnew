@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Party;
 use App\Refine;
+use App\Bill;
 
 class StockController extends Controller
 {
@@ -70,7 +71,37 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = '';
+        if ($request->has('msubmit')) 
+        {
+            $bill = new Bill;
+            $bill->receivedweight = $request->mdeposit;
+            $bill->party_id = $request->mparty;
+            $bill->clientpurity = $request->mpurity;
+            $bill->fineweight = $request->mfine;
+            $bill->billdate = date('Y-m-d');
+            $bill->totalbalance = $request->mfine;
+            $bill->description = 'coin deposited by client';
+            $bill->coinremark = $request->remark;
+            $bill->save();
+            $data = 'conin deposited successfully!!';
+        }
+        else
+        {
+            $bill = new Bill;
+            $bill->coinissuedweight = $request->mdeposit;
+            $bill->party_id = $request->mparty;
+            $bill->cointype = $request->mpurity;
+            $bill->fineweight = $request->mfine;
+            $bill->billdate = date('Y-m-d');
+            $bill->issueddate = date('Y-m-d');
+            $bill->totalbalance = $request->mfine;
+            $bill->description = 'coin deposited by client';
+            $bill->coinremark = $request->remark;
+            $bill->save();
+            $data = 'coin issued to client!!';
+        }
+        return $data;
     }
 
     /**
@@ -79,9 +110,15 @@ class StockController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function account(Request $request)
     {
-        //
+        if ($request->type == 'Debit') {
+            $data = '<br/><from method="POST" action="javascript:void(0)"><div class="table-responsive" align="center"><table class="table table-striped table-depositmnop"><tr><th>Received Weight</th><th>Purity %</th><th>Fine Weight</th><th>Remark</th><th>Confirm Deposit</th></tr><tr><td> <input type="number" id="mdeposit" name="mdeposit" value="0" step="0.001" class="form-control " required> </td><td><select id="mpurity" class="form-control" style="width: auto;" required><option selected="selected" disbaled>- Select Coin Type -</option><option value="99.5" >995</option><option value="100" >999</option></select></td><td> <input type="number" id="mfine" name="mfine" value="0" step="0.001" class="form-control " required> </td><td> <input type="text" id="coinremark" name="coinremark" class="form-control " required> </td><td> <button class="btn btn-primary" id="msubmit" name="msubmit" type="button">Confirm deposit</button> </td></tr></table></from></div>';
+        }
+        elseif ($request->type=="Credit") {
+            $data = '<br/><div class="table-responsive" align="center"><table class="table table-striped table-creditmnop"><tr><th>Coin Purity %</th><th>Issued Weight</th><th>Fine Weight</th><th>Remark</th><th>Confirm issued</th></tr><tr><td><select id="cputiry" class="form-control" style="width: auto;" required><option selected="selected" disbaled>- Select Coin Type -</option><option value="99.5" >995</option><option value="100" >999</option></select></td><td><input type="number" id="cissued" value="0" step="0.001" class="form-control" style="width: auto;" required ></td><td><input type="number" id="cfine" value="0" step="0.001" class="form-control" style="width: auto;" required ></td><td> <input type="text" id="coinremark" name="coinremark" class="form-control " required> </td><td> <button class="btn btn-primary" id="csubmit" name="csubmit" type="button">Confirm Issued</button> </td></tr></table></div>';
+        }
+        return $data;
     }
 
     /**

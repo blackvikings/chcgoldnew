@@ -152,10 +152,15 @@
 		 
 		$('#accounttype').change(function(){
       var a = $('#party_selector ').val();
-      var b = $('#accounttype ').val();
+      var b = $('#accounttype').val();
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
 			$.ajax({
         type: 'POST',
-        url: 'ajax.php',
+        url: '{{ route('get.account') }}',
         data: { party: a, type: b},
         success: function(html)
         {
@@ -174,28 +179,42 @@
               $('#cfine').val(parseFloat(Number(total).toFixed(3)));
             });
   		      $('#msubmit').click(function() {
+              $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
               $.ajax({
                 type: 'POST',
-                url: 'ajax.php',
+                url: '{{ route('store.account') }}',
                 data: { msubmit: $('#msubmit').val(), remark: $('#coinremark').val(), mfine: $('#mfine').val(), mdeposit: $('#mdeposit').val(), mpurity: $('#mpurity').val(), mparty: $('#party_selector').val()},
                 success: function(html)
                 {
-                  $('#contact_results').html('<p class=\"alert alert-success\">'+html+'</p>');
-                  $('#contact_results').show();
-                  $('#contact_results').fadeOut(3000);
+                  toastr.success(html);
+                  console.log(html);
+                  // $('#contact_results').html('<p class=\"alert alert-success\">'+html+'</p>');
+                  // $('#contact_results').show();
+                  // $('#contact_results').fadeOut(3000);
                 }
               });
-            });
-  		      $( '#csubmit' ).click(function() {
+            });  
+  		      $('#csubmit').click(function() {
+              $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              }); 
               $.ajax({
                 type: 'POST',
-                url: 'ajax.php',
+                url: '{{ route('store.account') }}',
                 data: { csubmit: $('#csubmit').val(), remark: $('#coinremark').val(), cfine: $('#cfine').val(), cissued: $('#cissued').val(), cputiry: $('#cputiry').val(), mparty: $('#party_selector').val()},
                 success: function(html)
                 {
-                  $('#contact_results').html('<p class=\"alert alert-success\">'+html+'</p>');
-                  $('#contact_results').show();
-                  $('#contact_results').fadeOut(3000);
+                  toastr.success(html);
+                  console.log(html);
+                  // $('#contact_results').html('<p class=\"alert alert-success\">'+html+'</p>');
+                  // $('#contact_results').show();
+                  // $('#contact_results').fadeOut(3000);
                 }
               });
             });

@@ -83,6 +83,8 @@ Route::delete('/admin/delete-refine/{id}', 'RefineController@destroy')->name('de
 Route::get('/admin/stock', 'StockController@index')->name('stock');
 Route::post('/admin/get-stocks', 'StockController@create')->name('get.stocks');
 Route::post('/admin/update-stocks', 'StockController@update')->name('update.stocks');
+Route::post('/admin/get-accounts', 'StockController@account')->name('get.account');
+Route::post('/admin/store-account-data', 'StockController@store')->name('store.account');
 
 Route::get('/admin/ledger', 'LedgerController@index')->name('ledger');
 
