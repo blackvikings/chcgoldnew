@@ -51,7 +51,7 @@
             <div class="form-group">
             	<div class="col-md-12">
                 <select class="form-control form-control-line" id="fyyear">
-                  <option value="@php echo date('Y', strtotime('-1 year')); @endphp-@php echo date('Y', strtotime('-1 year')); @endphp">@php echo date('Y', strtotime('-1 year')); @endphp-@php echo date('Y'); @endphp</option>
+                  <option value="{{ $year }}">{{ $year }}</option>
                 </select>
               </div>
            	</div>

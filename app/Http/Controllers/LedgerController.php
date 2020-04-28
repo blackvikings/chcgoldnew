@@ -22,7 +22,16 @@ class LedgerController extends Controller
     public function index()
     {
         $parties = Party::all();
-        return view('admin.ledger.ledger', ['parties' => $parties]);
+        $year = 0;
+        if (date('m') > 6) 
+        {
+            $year = date('Y')."-".(date('Y') +1);
+        }
+        else 
+        {
+            $year = (date('Y')-1)."-".date('Y');
+        } 
+        return view('admin.ledger.ledger', ['parties' => $parties, 'year' => $year]);
     }
 
     /**
@@ -78,9 +87,11 @@ class LedgerController extends Controller
         $clientdpst100 = 0;
 
         $refines = Refine::whereBetween('batchdate',[$startdate, $enddate])->get();
-
+        $bills = Bill::whereBetween('billdate', [$startdate, $enddate])->get();
+        $ledgers = Ledger::where('financialyear', $fyyear)->get();
         if (!$refines->isEmpty()) 
         {
+            // return 'Hello';
             foreach ($refines as $refine) 
             {
                 if($refine->cointype == 99.5 || $refine->cointype == 99.50)
@@ -94,8 +105,6 @@ class LedgerController extends Controller
             }
         }
 
-        $bills = Bill::whereBetween('billdate', [$startdate, $enddate])->get();
-
         if(!$bills->isEmpty())
         {
             foreach ($bills as $bill) 
@@ -104,41 +113,39 @@ class LedgerController extends Controller
                 {
                     if($bill->cointype == 99.5)
                     { 
-                        $clientstck995 = $clientstck995 + $refine->coinissuedweight; 
+                        $clientstck995 = $clientstck995 + $bill->coinissuedweight; 
                     }
-                    elseif($refine->cointype == 100)
+                    elseif($bill->cointype == 100)
                     { 
-                        $clientstck100 = $clientstck100 + $refine->coinissuedweight; 
+                        $clientstck100 = $clientstck100 + $bill->coinissuedweight; 
                     }
                 } 
                 else 
                 {
-                    if($refine->description == 'coin deposited by client')
+                    if($bill->description == 'coin deposited by client')
                     {
-                        if($refine->clientpurity == 99.5)
+                        if($bill->clientpurity == 99.5)
                         { 
-                            $clientdpst995 = $clientdpst995 + $refine->receivedweight; 
+                            $clientdpst995 = $clientdpst995 + $bill->receivedweight; 
                         }
-                        elseif($refine->clientpurity == 100)
+                        elseif($bill->clientpurity == 100)
                         { 
-                            $clientdpst100 = $clientdpst100 + $refine->receivedweight; 
+                            $clientdpst100 = $clientdpst100 + $bill->receivedweight; 
                         }
                     }    
                 }
             }
         }
 
-        $ledgers = Ledger::where('financialyear', $fyyear)->get();
-
         if(!$ledgers->isEmpty())
         {
             foreach ($ledgers as $ledger) 
             {
-                if($refine->cointype == 99.5)
+                if($ledger->cointype == 99.5 || $ledger->cointype == 99.50)
                 {
-                    $stock995 = $leger->openingcoinweight;
+                    $stock995 = $ledger->openingcoinweight;
                 } 
-                elseif($refine->cointype == 100)
+                elseif($ledger->cointype == 100)
                 { 
                     $stock100 = $ledger->openingcoinweight;
                 }
@@ -160,7 +167,7 @@ class LedgerController extends Controller
      */
     public function show(Request $request)
     {
-        
+        //
     }
 
     /**
