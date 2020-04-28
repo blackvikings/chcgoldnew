@@ -16,7 +16,7 @@
 											<label>Serial Number</label>
 											<div class="col-md-8">
 												@if($bill)
-													<input type="text" name="serial_inc" class="form-control @error('serial_inc') is-invalid @enderror " value='{{ $bill->billserial }}' readonly >
+													<input type="text" name="serial_inc" class="form-control @error('serial_inc') is-invalid @enderror " value='{{ $bill->billserial+1 }}' readonly >
 													@error('serial_inc')
 							                            <span class="invalid-feedback" role="alert">
 							                                <strong>{{ $message }}</strong>
