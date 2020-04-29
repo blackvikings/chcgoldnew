@@ -45,7 +45,7 @@ class RolesController extends Controller
     {
         $validation = Validator::make($req->all(), [ 
             'name' => 'required|max:20|string',
-            'slug' => 'required|string|unique:roles',
+            'slug' => 'required|string',
         ]);
 
         if ($validation->fails()) {
@@ -67,7 +67,7 @@ class RolesController extends Controller
     {
         $validation = Validator::make($req->all(), [ 
             'name' => 'required|max:20|string',
-            'slug' => 'required|string|unique:roles',
+            'slug' => 'required|string',
         ]);
 
         if ($validation->fails()) {
@@ -77,7 +77,6 @@ class RolesController extends Controller
         $role = Role::find($role_id);
         $role->name = $req->name;
         $role->slug = $req->slug;
-        $role->description = $req->description;
         $role->save();
         Session::flash('status', 'Role updated'); 
         return Redirect::route('manage.roles');

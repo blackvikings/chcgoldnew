@@ -22,9 +22,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
    	Route::resource('permissions', 'PermissionController');
-   	Route::resource('terms', 'TermController');
-   	Route::resource('tags', 'TagController');
 });
+
 
 Route::get('/admin/home', 'HomeController@index')->name('home');
 Route::post('/admin/role-assign', 'UserController@roleassign')->name('role-assign');
@@ -90,7 +89,7 @@ Route::get('/admin/ledger', 'LedgerController@index')->name('ledger');
 Route::post('/admin/get-party-ledgers', 'LedgerController@create')->name('get.party.ledgers');
 Route::post('/admin/stock-details', 'LedgerController@store')->name('stock.details');
 
-// Route::
+Route::get('/operator/manage-party', 'Operator\HomeController@index')->name('operator.manage.party');
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
