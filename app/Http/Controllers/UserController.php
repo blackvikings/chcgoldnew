@@ -11,12 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use Redirect;
 use Session;
 class UserController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-     /**
+{   
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -39,12 +35,8 @@ class UserController extends Controller
     public function index(Request $req)
     {
         // $users = User::orderBy('id','DESC')->with('roles')->get();
-        $users = User::whereHas(
-            'roles', function($q){
-                $q->where('name', '!=', 'student');
-            }
-        )->with('roles')->get();
-        $roles = Role::orderBy('id','DESC')->where('name', '!=', 'student')->get();
+        $users = User::with('roles')->get();
+        $roles = Role::orderBy('id','DESC')->get();
         return view('admin.users.index',['users' => $users, 'roles' => $roles]);
     }
 
@@ -149,6 +141,6 @@ class UserController extends Controller
             $user->removeRole($role);
         }
         User::find($user_id)->delete();        
-        return Redirect::back()->with(['msg', 'The Message']);  
+        return Redirect::back()->with(['msg', 'User deleted successfully']);  
     }
 }

@@ -78,7 +78,28 @@
         </div>
     </div>
 @endsection
-
+@push('scripts')
+<script type="text/javascript">
+    
+    function assignrole(role_id, user_id)
+    {
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('role-assign') }}',
+            data: {'role_id': role_id, 'user_id': user_id },
+            success: function(html)
+            { 
+                toastr.success(html);
+            }
+        });
+    }
+</script>
+@endpush
             {{-- <div class="card">
 
                 <div class="card-header card-header-primary">

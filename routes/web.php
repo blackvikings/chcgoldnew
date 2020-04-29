@@ -90,6 +90,8 @@ Route::get('/admin/ledger', 'LedgerController@index')->name('ledger');
 Route::post('/admin/get-party-ledgers', 'LedgerController@create')->name('get.party.ledgers');
 Route::post('/admin/stock-details', 'LedgerController@store')->name('stock.details');
 
+// Route::
+
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     return "Cache is cleared";
