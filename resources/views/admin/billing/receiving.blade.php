@@ -9,7 +9,6 @@
 						@csrf
                         <div class="table-responsive"> 
                             <table class="table table-striped">
-							
 								<tr>
                                     <td>
 										<div class="form-group">

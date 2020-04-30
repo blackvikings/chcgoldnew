@@ -90,6 +90,8 @@ Route::post('/admin/get-party-ledgers', 'LedgerController@create')->name('get.pa
 Route::post('/admin/stock-details', 'LedgerController@store')->name('stock.details');
 
 Route::get('/operator/reception', 'ReceptionController@index')->name('reception');
+Route::post('/operator/reception', 'ReceptionController@store')->name('reception.store');
+
 Route::get('/operator/issuing', 'IssuingController@index')->name('issuing');
 Route::get('/operator/bath-overview', 'BathOverviewController@index')->name('bath.overview');
 Route::get('/operator/testing-report', 'TestingReportController@index')->name('testing.report');
