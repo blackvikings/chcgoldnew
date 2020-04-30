@@ -131,13 +131,39 @@ body {margin:0;font-family:Arial}
 		<a class="navbar-brand" href="{{ route('manage.party') }}"><img src="{{ asset('public/assets/chc.jpg') }}" width="150px"/></a>
   	</div>
   @if(Auth::check())
+    @can('manage-party')
       <a href="{{ route('manage.party') }}">Manage Party</a>
+    @endcan
+    @can('reception')
+      <a href="{{ route('reception') }}">Reception</a>
+    @endcan
+    @can('receiving')
       <a href="{{ route('receiving') }}">Receiving</a>
+    @endcan
+    @can('issuing')
+      <a href="{{ route('issuing') }}">Issuing</a>
+    @endcan
+    @can('bath-overview')
+      <a href="{{ route('bath.overview') }}">Batch Overview</a>
+    @endcan
+    @can('testing-report')
+      <a href="{{ route('testing.report') }}">Testing Report</a>
+    @endcan
+    @can('edit-receiving')
       <a href="{{ route('edit.receiving') }}">Edit Receiving</a>
+    @endcan
+    @can('fireassay')
       <a href="{{ route('fireassay') }}">Fireassay</a>
+    @endcan
+    @can('refine')
       <a href="{{ route('refine') }}">Refine</a>
+    @endcan
+    @can('stock')
       <a href="{{ route('stock') }}">Stock</a>
+    @endcan
+    @can('ledger')
       <a href="{{ route('ledger') }}">Ledger</a>
+    @endcan
       <a href="{{ route('logout') }}"  class="btn btn-danger" onclick="event.preventDefault();
                                                              document.getElementById('logout-form').submit();">Logout</a>
                                                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

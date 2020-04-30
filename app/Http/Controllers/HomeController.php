@@ -28,7 +28,7 @@ class HomeController extends Controller
             return Redirect::route('manage.party');
         }
         elseif(Auth::user()->hasRole('operator')) {
-            return Redirect::route('operator.manage.party');
+            return Redirect::route('manage.party');
         }
     }
 }

@@ -89,7 +89,10 @@ Route::get('/admin/ledger', 'LedgerController@index')->name('ledger');
 Route::post('/admin/get-party-ledgers', 'LedgerController@create')->name('get.party.ledgers');
 Route::post('/admin/stock-details', 'LedgerController@store')->name('stock.details');
 
-Route::get('/operator/manage-party', 'Operator\HomeController@index')->name('operator.manage.party');
+Route::get('/operator/reception', 'ReceptionController@index')->name('reception');
+Route::get('/operator/issuing', 'IssuingController@index')->name('issuing');
+Route::get('/operator/bath-overview', 'BathOverviewController@index')->name('bath.overview');
+Route::get('/operator/testing-report', 'TestingReportController@index')->name('testing.report');
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');

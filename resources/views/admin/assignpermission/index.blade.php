@@ -1,5 +1,8 @@
 @extends('layouts.app')
 {{-- @php print_r($permissions->toArray());die; @endphp --}}
+@push('css')
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+@endpush
 @section('content')
 <div class="content">
     <div class="container">
@@ -70,9 +73,32 @@
 @endsection
 
 @push('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();   
     });
+
+    function assign(permission)
+    {
+        // console.log($permission);
+        var permission_id = permission.value;
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('permissions-assign') }}',
+            data: {'permission_id': permission_id, 'role_id': {{ $role->id }} },
+            success: function(html)
+            {
+                toastr.success(html);
+            }
+        });
+    }
 </script>
 @endpush
