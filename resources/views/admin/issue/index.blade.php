@@ -64,7 +64,7 @@
                                          //   echo "0 results";
                                            // }
                                         //$conn->close();
-                                    ?>  
+                  ?>  
                 </div>
             </div>
         </div>
@@ -126,5 +126,7 @@ $('#accounttype').change(function(){
    	});
 });
 </script>
+@endpush
 
+@push('modal')
 @endpush

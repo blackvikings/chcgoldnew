@@ -13,7 +13,7 @@ class TestingReportController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.testing-report.index');
     }
 
     /**
