@@ -36,35 +36,7 @@
             <div class="card-body">
                 <h4 class="card-title" style="color:white; background:black; padding:10px;">Print Issue / Deposit Voucher</h4>
                 <div class="feed-widget">
-                <?php
-                                         //   $inv ="";
-                                           // $party = "";
-                                            //$type = "";
-                                            //$weight = "";
-                                    // Create connection
-                                   //$conn = new mysqli($servername, $username, $password, $dbname);
-                                    //if ($conn->connect_error) {die("Connection failed: " . $conn->connect_error);} 
-                                    //$sql = "SELECT * FROM issuingvoucher ORDER BY invoiceno ASC";
-                                    //$result = $conn->query($sql);
-                                    //if ($result->num_rows > 0) {
-                                      //  while($row = $result->fetch_assoc()) {
-                                        //    $mxdate = $row["date"];
-                                          //  $inv = $row["invoiceno"];
-                                          //  $party = $row["partyname"];
-                                            //$isremark = $row["issuedto"];
-                                            //$particular = $row["particular"];
-                                            //$type = $row["purity"];
-                                            //$weight = $row["coinweight"];
-                                                
-                                                //  echo "Sr. No. : " . $row["invoiceno"]. " / Name: " . $row["partyname"]. " / Weight" . $row["coinweight"]. "<br>";
-                                           // }
-                                           // echo '<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Print Voucher</button>';
-
-                                       // } else {
-                                         //   echo "0 results";
-                                           // }
-                                        //$conn->close();
-                  ?>  
+                  <a class="btn btn-info btn-lg" href="{{ route('print.issued.voucher') }}">Print Voucher</a>
                 </div>
             </div>
         </div>
@@ -75,12 +47,18 @@
 $('#accounttype').change(function(){
     var a = $('#party_selector ').val();
     var b = $('#accounttype ').val();
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
 	$.ajax({
 	  	type: 'POST',
-	  	url: 'ajax.php',
+	  	url: '{{ route('issue.voucher') }}',
   		data: { party: a, type: b},
 	  	success: function(html)
 	  	{
+        // console.log(html);
       		$('#accountjournal').html(html);
       		$('#accountjournal').show(function(){
 	           	$( '#mfine' ).focus(function() {
@@ -96,37 +74,40 @@ $('#accounttype').change(function(){
 	            	$('#cfine ').val(parseFloat(Number(total).toFixed(3)));
 	          	});
 	          	$( '#msubmit' ).click(function() {
-	               	$.ajax({
-					  	type: 'POST',
-					 	url: 'ajax.php',
-					  	data: { msubmit: $('#msubmit').val(), remark: $('#coinremark').val(), mfine: $('#mfine').val(), mdeposit: $('#mdeposit').val(), mpurity: $('#mpurity').val(), mparty: $('#party_selector').val()},
-	  					success: function(html)
-	  					{
-	      					$('#contact_results').html('<p class=\"alert alert-success\">'+html+'</p>');
-	      					$('#contact_results').show();
-	      					$('#contact_results').fadeOut(3000);
-	  					}
-	    			});
+                $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+               	$.ajax({
+				  	      type: 'POST',
+				 	        url: '{{ route('issue.voucher.store') }}',
+			  	        data: { msubmit: $('#msubmit').val(), remark: $('#coinremark').val(), mfine: $('#mfine').val(), mdeposit: $('#mdeposit').val(),      mpurity: $('#mpurity').val(), mparty: $('#party_selector').val()},
+    	  					success: function(html)
+    	  					{
+                    toastr.success(html);
+    	  					}
+    	    			});
 	          	});
 	            $( '#csubmit' ).click(function() {
-	              	$.ajax({
-	  					type: 'POST',
-	  					url: 'ajax.php',
-	  					data: { csubmit: $('#csubmit').val(), remark: $('#coinremark').val(), cfine: $('#cfine').val(), cissued: $('#cissued').val(), cputiry: $('#cputiry').val(), mparty: $('#party_selector').val()},
-	  					success: function(html)
-	  					{
-	      					$('#contact_results').html('<p class=\"alert alert-success\">'+html+'</p>');
-	      					$('#contact_results').show();
-	      					$('#contact_results').fadeOut(3000);
-	  					}
-	    			});
-	          	});
+                $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                }); 
+              	$.ajax({
+    	  					type: 'POST',
+    	  					url: '{{ route('issue.voucher.store') }}',
+    	  					data: { csubmit: $('#csubmit').val(), remark: $('#coinremark').val(), cfine: $('#cfine').val(), cissued: $('#cissued').val(),       cputiry: $('#cputiry').val(), mparty: $('#party_selector').val()},
+  	  					success: function(html)
+  	  					{
+                  toastr.success(html);
+  	  					}
+	    			  });
+	          });
         	});
   		}    
    	});
 });
 </script>
-@endpush
-
-@push('modal')
 @endpush

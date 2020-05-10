@@ -259,6 +259,11 @@ class RefineController extends Controller
         return 'Bill updated successfully!!';
     }
 
+    public function overview()
+    {
+        return view('admin.refine.monthly-refine');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

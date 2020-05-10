@@ -10,4 +10,9 @@ class Party extends Model
     {
     	return $this->hasMany('App\Bill');
     }
+
+    public function vouchers()
+    {
+    	return $this->hasMany('App\TestingVoucher');
+    }
 }

@@ -85,16 +85,26 @@ Route::post('/admin/update-stocks', 'StockController@update')->name('update.stoc
 Route::post('/admin/get-accounts', 'StockController@account')->name('get.account');
 Route::post('/admin/store-account-data', 'StockController@store')->name('store.account');
 
+Route::get('/admin/refine-monthly-overview', 'RefineController@overview')->name('refine.monthly.overview');
+
 Route::get('/admin/ledger', 'LedgerController@index')->name('ledger');
 Route::post('/admin/get-party-ledgers', 'LedgerController@create')->name('get.party.ledgers');
 Route::post('/admin/stock-details', 'LedgerController@store')->name('stock.details');
 
-Route::get('/operator/reception', 'ReceptionController@index')->name('reception');
-Route::post('/operator/reception', 'ReceptionController@store')->name('reception.store');
+Route::get('/admin/reception', 'ReceptionController@index')->name('reception');
+Route::post('/admin/reception', 'ReceptionController@store')->name('reception.store');
 
-Route::get('/operator/issuing', 'IssuingController@index')->name('issuing');
-Route::get('/operator/bath-overview', 'BathOverviewController@index')->name('bath.overview');
-Route::get('/operator/testing-report', 'TestingReportController@index')->name('testing.report');
+Route::get('/admin/issuing', 'IssuingController@index')->name('issuing');
+Route::post('/admin/issue-vouchers', 'IssuingController@create')->name('issue.voucher');
+Route::post('/admin/issue-voucher-store', 'IssuingController@store')->name('issue.voucher.store');
+Route::get('/admin/print-issue-voucher', 'IssuingController@show')->name('print.issued.voucher');
+
+Route::get('/admin/bath-overview', 'BathOverviewController@index')->name('bath.overview');
+
+Route::get('/admin/testing-report', 'TestingReportController@index')->name('testing.report');
+Route::post('/admin/testing-report-store', 'TestingReportController@store')->name('store.testing.voucher');
+Route::post('/admin/get-testing-vouchers', 'TestingReportController@update')->name('get.tesing.vouchers');
+Route::get('/admin/testing-voucher-print/{voucher}', 'TestingReportController@edit')->name('get.voucher.print');
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');

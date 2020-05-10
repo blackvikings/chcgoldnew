@@ -38,8 +38,8 @@
 				</span>
 				<form class="login100-form validate-form p-b-33 p-t-5" action="{{ route('login') }}" method="POST">
 					@csrf
-					<div class="wrap-input100 validate-input" data-validate = "Enter your Mobile Number">
-						<input class="input100 @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" placeholder="Mobile Number" required="required">
+					<div class="wrap-input100 validate-input" data-validate = "Enter your email address">
+						<input class="input100 @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" placeholder="Email address" required="required">
 						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 						@error('email')
                             <span class="invalid-feedback" role="alert">

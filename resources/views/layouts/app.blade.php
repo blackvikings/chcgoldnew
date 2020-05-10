@@ -122,6 +122,33 @@ body {margin:0;font-family:Arial}
 	label{
 		color:black;
 	}
+  .date-input {
+      position: relative;
+      width: 100%; 
+      height: 34px;
+      color: white;
+      padding: 5px;
+  }
+
+  .date-input:before {
+      position: absolute;
+      top: 5px; left: 14px;
+      content: attr(data-date);
+      display: inline-block;
+      color: black;
+  }
+
+  .date-input::-webkit-datetime-edit, .date-input::-webkit-inner-spin-button, .date-input::-webkit-clear-button {
+      display: none;
+  }
+
+  .date-input::-webkit-calendar-picker-indicator {
+      position: absolute;
+      top: 3px;
+      right: 0;
+      color: black;
+      opacity: 1;
+  }
 </style>	
 	@stack('css')	
 </head>
@@ -145,6 +172,9 @@ body {margin:0;font-family:Arial}
     @endcan
     @can('bath-overview')
       <a href="{{ route('bath.overview') }}">Batch Overview</a>
+    @endcan
+    @can('refine-monthly-overview')
+    <a href="{{ route('refine.monthly.overview') }}">Refine Monthly Overview</a>
     @endcan
     @can('testing-report')
       <a href="{{ route('testing.report') }}">Testing Report</a>
@@ -238,13 +268,23 @@ function myFunction() {
     <script src="{{ asset('public/assets/admin/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
     <script src="{{ asset('public/assets/admin/dist/js/pages/dashboards/dashboard1.js') }}"></script>
     
-<script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/jquery/jquery-1.8.3.min.js') }}" charset="UTF-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 {{-- <script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/bootstrap/js/bootstrap.min.js') }}"></script> --}}
-<script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/js/bootstrap-datetimepicker.js') }}" charset="UTF-8"></script>
-<script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/js/locales/bootstrap-datetimepicker.fr.js') }}" charset="UTF-8"></script>
+{{-- <script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/js/bootstrap-datetimepicker.js') }}" charset="UTF-8"></script> --}}
+{{-- <script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/js/locales/bootstrap-datetimepicker.fr.js') }}" charset="UTF-8"></script> --}}
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @stack('scripts')
 <script type="text/javascript">
+  $("input").on("change", function() {
+    this.setAttribute(
+        "data-date",
+        moment(this.value, "YYYY-MM-DD")
+        .format( this.getAttribute("data-date-format") )
+    )
+  }).trigger("change")
+</script>
+{{-- <script type="text/javascript">
     $(".form_datetime").datetimepicker({
         //language:  "fr",
         weekStart: 1,
@@ -276,7 +316,7 @@ function myFunction() {
         maxView: 1,
         forceParse: 0
     });
-</script>
+</script> --}}
 @if(Session::has('message'))
 <script>
     var type = "{{ Session::get('alert-type', 'info') }}";
