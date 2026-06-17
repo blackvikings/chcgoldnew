@@ -6,35 +6,35 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="{{ asset('public/assets/images/icons/favicon.ico') }}"/>
+	<link rel="icon" type="image/png" href="{{ asset('assets/images/icons/favicon.ico') }}"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/bootstrap/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/animate/animate.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/animate/animate.css') }}">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/css-hamburgers/hamburgers.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css-hamburgers/hamburgers.min.css') }}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/animsition/css/animsition.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/animsition/css/animsition.min.css') }}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/select2/select2.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/select2/select2.min.css') }}">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/daterangepicker/daterangepicker.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/daterangepicker/daterangepicker.css') }}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/css/util.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/css/main.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/util.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}">
 <!--===============================================================================================-->
 </head>
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('{{ asset('public/assets/bg-01.jpg') }}');">
+		<div class="container-login100" style="background-image: url('{{ asset('assets/bg-01.jpg') }}');">
 			<div class="wrap-login100 p-t-30 p-b-50">
 				<span class="login100-form-title p-b-41">
-					<img src="{{ asset('public/assets/chc.jpg') }}" width="200px"/>
+					<img src="{{ asset('assets/chc.jpg') }}" width="200px"/>
 				</span>
 				<form class="login100-form validate-form p-b-33 p-t-5" action="{{ route('login') }}" method="POST">
 					@csrf
@@ -73,21 +73,21 @@
 	<div id="dropDownSelect1"></div>
 	
 <!--===============================================================================================-->
-	<script src="{{ asset('public/assets/jquery/jquery-3.2.1.min.js') }}"></script>
+	<script src="{{ asset('assets/jquery/jquery-3.2.1.min.js') }}"></script>
 <!--===============================================================================================-->
-	<script src="{{ asset('public/assets/animsition/js/animsition.min.js') }}"></script>
+	<script src="{{ asset('assets/animsition/js/animsition.min.js') }}"></script>
 <!--===============================================================================================-->
-	<script src="{{ asset('public/assets/bootstrap/js/popper.js') }}"></script>
-	<script src="{{ asset('public/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('assets/bootstrap/js/popper.js') }}"></script>
+	<script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 <!--===============================================================================================-->
-	<script src="{{ asset('public/assets/select2/select2.min.js') }}"></script>
+	<script src="{{ asset('assets/select2/select2.min.js') }}"></script>
 <!--===============================================================================================-->
-	<script src="{{ asset('public/assets/daterangepicker/moment.min.js') }}"></script>
-	<script src="{{ asset('public/assets/daterangepicker/daterangepicker.js') }}"></script>
+	<script src="{{ asset('assets/daterangepicker/moment.min.js') }}"></script>
+	<script src="{{ asset('assets/daterangepicker/daterangepicker.js') }}"></script>
 <!--===============================================================================================-->
-	<script src="{{ asset('public/assets/countdowntime/countdowntime.js') }}"></script>
+	<script src="{{ asset('assets/countdowntime/countdowntime.js') }}"></script>
 <!--===============================================================================================-->
-	<script src="{{ asset('public/assets/js/main.js') }}"></script>
+	<script src="{{ asset('assets/js/main.js') }}"></script>
 
 </body>
 </html>

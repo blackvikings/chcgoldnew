@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('public/assets/chc.jpg') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/chc.jpg') }}">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Chhattisgarh Hallmarking Center</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="{{ asset('public/assets/admin/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/assets/admin/dist/css/style.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/assets/admin/datepiker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" media="screen">
+  <link href="{{ asset('assets/admin/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/admin/dist/css/style.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/admin/datepiker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" media="screen">
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 	<style>
 body {margin:0;font-family:Arial}
@@ -155,7 +155,7 @@ body {margin:0;font-family:Arial}
 <body>
 <div class="topnav navbar" id="myTopnav">
 	<div class="navbar-header">
-		<a class="navbar-brand" href="{{ route('manage.party') }}"><img src="{{ asset('public/assets/chc.jpg') }}" width="150px"/></a>
+		<a class="navbar-brand" href="{{ route('manage.party') }}"><img src="{{ asset('assets/chc.jpg') }}" width="150px"/></a>
   	</div>
   @if(Auth::check())
     @can('manage-party')
@@ -170,9 +170,9 @@ body {margin:0;font-family:Arial}
     @can('issuing')
       <a href="{{ route('issuing') }}">Issuing</a>
     @endcan
-    @can('bath-overview')
+    {{-- @can('bath-overview')
       <a href="{{ route('bath.overview') }}">Batch Overview</a>
-    @endcan
+    @endcan --}}
     @can('refine-monthly-overview')
     <a href="{{ route('refine.monthly.overview') }}">Refine Monthly Overview</a>
     @endcan
@@ -253,26 +253,26 @@ function myFunction() {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>  
-    <script src="{{ asset('public/assets/admin/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
-    <script src="{{ asset('public/assets/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('public/assets/admin/dist/js/app-style-switcher.js') }}"></script>
+    <script src="{{ asset('assets/admin/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/dist/js/app-style-switcher.js') }}"></script>
     <!--Wave Effects -->
-    <script src="{{ asset('public/assets/admin/dist/js/waves.js') }}"></script>
+    <script src="{{ asset('assets/admin/dist/js/waves.js') }}"></script>
     <!--Menu sidebar -->
-    <script src="{{ asset('public/assets/admin/dist/js/sidebarmenu.js') }}"></script>
+    <script src="{{ asset('assets/admin/dist/js/sidebarmenu.js') }}"></script>
     <!--Custom JavaScript -->
-    <script src="{{ asset('public/assets/admin/dist/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/admin/dist/js/custom.js') }}"></script>
     <!--This page JavaScript -->
     <!--chartis chart-->
-    <script src="{{ asset('public/assets/admin/assets/libs/chartist/dist/chartist.min.js') }}"></script>
-    <script src="{{ asset('public/assets/admin/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
-    <script src="{{ asset('public/assets/admin/dist/js/pages/dashboards/dashboard1.js') }}"></script>
+    <script src="{{ asset('assets/admin/assets/libs/chartist/dist/chartist.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/dist/js/pages/dashboards/dashboard1.js') }}"></script>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-{{-- <script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/bootstrap/js/bootstrap.min.js') }}"></script> --}}
-{{-- <script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/js/bootstrap-datetimepicker.js') }}" charset="UTF-8"></script> --}}
-{{-- <script type="text/javascript" src="{{ asset('public/assets/admin/datepiker/js/locales/bootstrap-datetimepicker.fr.js') }}" charset="UTF-8"></script> --}}
+{{-- <script type="text/javascript" src="{{ asset('assets/admin/datepiker/bootstrap/js/bootstrap.min.js') }}"></script> --}}
+{{-- <script type="text/javascript" src="{{ asset('assets/admin/datepiker/js/bootstrap-datetimepicker.js') }}" charset="UTF-8"></script> --}}
+{{-- <script type="text/javascript" src="{{ asset('assets/admin/datepiker/js/locales/bootstrap-datetimepicker.fr.js') }}" charset="UTF-8"></script> --}}
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @stack('scripts')
 <script type="text/javascript">

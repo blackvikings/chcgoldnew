@@ -38,7 +38,7 @@
 				<div class="border-div">
 					<div class="row">
 						<div class="col-md-3">
-							<img src="{{ asset('public/assets/chc.jpg') }}" class="logo">
+							<img src="{{ asset('assets/chc.jpg') }}" class="logo">
 						</div>
 						<div class="col-md-6">
 							<h4><strong>CHHATTISGARH&nbsp;HALLMARKING&nbsp;CENTER</strong></h4>
@@ -84,7 +84,7 @@
 				<div class="border-div">
 					<div class="row">
 						<div class="col-md-3">
-							<img src="{{ asset('public/assets/chc.jpg') }}" class="logo">
+							<img src="{{ asset('assets/chc.jpg') }}" class="logo">
 						</div>
 						<div class="col-md-6">
 							<h4><strong>CHHATTISGARH&nbsp;HALLMARKING&nbsp;CENTER</strong></h4>

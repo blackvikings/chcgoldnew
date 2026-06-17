@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Party;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Validator;
 use Response;
 use Redirect;
@@ -53,7 +52,7 @@ class PartyController extends Controller
                 'partypercent' => "required"
             );
 
-            $validator = Validator::make(Input::all(), $rules);
+            $validator = Validator::make($request->all(), $rules);
 
             if ($validator->fails())
             {
@@ -126,7 +125,7 @@ class PartyController extends Controller
                 'partypercent' => "required"
             );
 
-            $validator = Validator::make(Input::all(), $rules);
+            $validator = Validator::make($request->all(), $rules);
 
             if ($validator->fails())
             {

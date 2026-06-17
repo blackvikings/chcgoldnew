@@ -36,7 +36,7 @@
 				<div class="border-div">
 					<div class="row">
 						<div class="col-md-3">
-							<img src="{{ asset('public/assets/chc.jpg') }}" class="logo">
+							<img src="{{ asset('assets/chc.jpg') }}" class="logo">
 						</div>
 						<div class="col-md-6">
 								<h4 class="text-center"><strong>GREEN GOLD JEWELLERY<br>WORKS LLP</strong></h4>
@@ -93,7 +93,7 @@
 				<div class="border-div">
 					<div class="row">
 						<div class="col-md-3">
-							<img src="{{ asset('public/assets/chc.jpg') }}" class="logo">
+							<img src="{{ asset('assets/chc.jpg') }}" class="logo">
 						</div>
 						<div class="col-md-6">
 								<h4 class="text-center"><strong>GREEN GOLD JEWELLERY<br>WORKS LLP</strong></h4>
